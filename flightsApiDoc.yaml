@@ -169,33 +169,6 @@ paths:
       tags:
         - airlines
       parameters:
-        - name: cancelation-weight
-          in: query
-          description: Weight of cancelations in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
-        - name: diversion-weight
-          in: query
-          description: Weight of diversions in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
-        - name: delay-weight
-          in: query
-          description: Weight of delays in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
         - name: airline-code
           in: query
           description: Rank the given airline
@@ -230,6 +203,33 @@ paths:
           schema:
             type: integer
             format: date
+        - name: cancellation-weight
+          in: query
+          description: Weight of cancellations in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: diversion-weight
+          in: query
+          description: Weight of diversions in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: delay-weight
+          in: query
+          description: Weight of delays in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
       responses:
         '200':
           description: Successful Operation

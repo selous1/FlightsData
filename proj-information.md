@@ -14,7 +14,7 @@ aliases: []
 ## Use cases:
 
 The use case request and response templates are not final and at the time are in the form of:
-```json
+```rust
 {
 	 acronim: type = "description",
 	*acronim: type = "description" // in the case of optional args
@@ -31,13 +31,13 @@ User will get general information about a flight in the dataset
 - Endpoint: `/flights/:id`
 - REST Type: GET
 - Request parameters:
-```json
+```rust
 {
 	id: number = "id"
 }
 ```
 - Response parameters:
-```json
+```rust
 {
 	ori: string = "origin",
 	dst: string = "destination",
@@ -62,7 +62,7 @@ User will get reliability scores about airlines.
 - Endpoint: `/airline/rank`
 - REST Type: GET
 - Request params:
-```json
+```rust
 {
 	*ori: string = "origin",
 	*dst: string = "destination", 
@@ -80,7 +80,7 @@ User will get reliability scores about airlines.
 }
 ```
 - Response params:
-```json
+```rust
 {
 	airlines: [
 		{
@@ -105,7 +105,7 @@ User will get general statistics about flights with certain conditions
 - Endpoint: `/flights/statistics`
 - REST Type: GET
 - Request params:
-```json
+```rust
 {
 	*airline: string = "possible filter by airline",
 	*origin: string = "possible filter by origin",
@@ -115,7 +115,7 @@ User will get general statistics about flights with certain conditions
 }
 ```
 - Response params:
-```json
+```rust
 {
 	can_per: float = "percentage of cancelations",
 	div_per: float = "percentage of diversions",
@@ -135,7 +135,7 @@ User will ask the api to predict a future flight
 - Endpoint: `/flights/forecast`
 - REST Type: GET
 - Request params:
-```json
+```rust
 {
 	ori: string = "origin",
 	dst: string = "destination",
@@ -144,7 +144,7 @@ User will ask the api to predict a future flight
 }
 ```
 - Response params:
-```json
+```rust
 {
 	can_prb: float = "cancelation probability",
 	div_prb: float = "diversion probability",
@@ -158,10 +158,10 @@ Admin will update the information about a flight
 - Endpoint:
 - REST Type: POST (?)
 - Request params:
-```json
+```rust
 ```
 - Response params:
-```json
+```rust
 ```
 
 ### Use Case 6:
@@ -171,10 +171,10 @@ Admin delete the information about a flight
 - Endpoint:
 - REST Type: DELETE
 - Request params:
-```json
+```rust
 ```
 - Response params:
-```json
+```rust
 ```
 
 ### Use Case 7:
@@ -184,10 +184,10 @@ Admin will add the information about a flight to the db
 - Endpoint:
 - REST Type: 
 - Request params:
-```json
+```rust
 ```
 - Response params:
-```json
+```rust
 ```
 
 

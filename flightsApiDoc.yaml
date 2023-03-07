@@ -1,0 +1,358 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: USA Flights API
+  description: This API allows the user to obtain information and statistics about ?2019? flights and forecast future flights with this data.
+tags:
+  - name: flights
+    description: Obtain information about flights and get flight forecasts
+  - name: airlines
+    description: Obtain information about airlines and their reliability
+paths:
+  /flights:
+    get:
+      tags:
+        - flights
+      summary: Obtain data regarding flights
+      description: Obtain a list of flights and their statistics, given certain criteria.
+      operationId: getFlights
+      parameters:
+        - name: limit
+          in: query
+          description: Limit the number of results
+          required: false
+          schema:
+            type: integer
+        - name: only-statistics
+          in: query
+          description: Only return statistics about flights, ignoring flight details
+          required: false
+          schema:
+            type: boolean
+        - name: airline-code
+          in: query
+          description: Filter results by airlines
+          required: false
+          schema:
+            type: string
+        - name: origin-airport-id
+          in: query
+          description: Filter results by the origin airport
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: dest-airport-id
+          in: query
+          description: Filter results by the destination airport
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: start-date
+          in: query
+          description: Filter results with a flight date after the given date
+          required: false
+          schema:
+            type: integer
+            format: date
+        - name: end-date
+          in: query
+          description: Filter results with a flight date before the given date
+          required: false
+          schema:
+            type: integer
+            format: date
+      responses: 
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statistics:
+                    $ref: '#/components/schemas/FlightsStatistics'
+                  flights:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Flight'
+        '400':
+          description: Invalid Parameters
+  /flights/{flight-number}:
+    get:
+      tags:
+        - flights
+      summary: Obtain flight data by flight number
+      description: Obtain flight data given a flight number
+      operationId: getFlightByNumber
+      parameters:
+        - name: flight-number
+          in: path
+          description: Number of the flight to return
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
+        '400':
+          description: Invalid Flight Number
+        '404':
+          description: Flight Not Found
+      
+  /flights/forecast:
+    get:
+      tags:
+        - flights
+      summary: Obtain a forecast for a future flight
+      description: Obtain predictions for a future flight, given a date and other details
+      operationId: getFlightForecast
+      parameters:
+        - name: flight-date
+          in: query
+          description: Date for future flight
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: airline-code
+          in: query
+          description: Airline for future flight
+          required: false
+          schema:
+            type: string
+        - name: origin-airport-id
+          in: query
+          description: Origin airport for future flight
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: dest-airport-id
+          in: query
+          description: Destination airport for future flight
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: departure-time
+          in: query
+          description: Departure time for future flight
+          required: false
+          schema:
+            type: integer
+            format: time
+        - name: arrival-time
+          in: query
+          description: Arrival time for future flight
+          required: false
+          schema:
+            type: integer
+            format: time
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPrediction'
+        '400':
+          description: Invalid Parameters
+  /airlines/rank:
+    get:
+      tags:
+        - airlines
+      parameters:
+        - name: cancelation-weight
+          in: query
+          description: Weight of cancelations in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: diversion-weight
+          in: query
+          description: Weight of diversions in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: delay-weight
+          in: query
+          description: Weight of delays in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: airline-code
+          in: query
+          description: Rank the given airline
+          required: false
+          schema:
+            type: string
+        - name: origin-airport-id
+          in: query
+          description: Rank airlines using flight data from this origin airport
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: dest-airport-id
+          in: query
+          description: Rank airlines using flight data from this destination airport
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: start-date
+          in: query
+          description: Rank airlines using flight data after the given date
+          required: false
+          schema:
+            type: integer
+            format: date
+        - name: end-date
+          in: query
+          description: Rank airlines using flight data before the given date
+          required: false
+          schema:
+            type: integer
+            format: date
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AirlineRank'
+components:
+  schemas:
+    Flight:
+      type: object
+      properties:
+        flightDate:
+          type: string
+          format: date
+        flightNumber:
+          type: integer
+          format: int32
+        flightDuration:
+          type: integer
+          format: int32
+        cancelled:
+          type: boolean
+        diverted:
+          type: boolean
+        airline:
+          $ref: '#/components/schemas/Airline'
+        departure:
+          $ref: '#/components/schemas/FlightLandOrDep'
+        arrival:
+          $ref: '#/components/schemas/FlightLandOrDep'
+        tailNumber:
+          type: string
+          
+    Airline:
+      type: object
+      properties:
+        name:
+          type: string
+        iata:
+          type: string
+        icao:
+          type: string
+          
+    AirlineRank:
+      type: object
+      properties:
+        rankScore:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 100
+        airline:
+          $ref: '#/components/schemas/Airline'
+        statistics:
+          $ref: '#/components/schemas/FlightsStatistics'
+          
+    Airport:
+      type: object
+      properties:
+        name:
+          type: string
+        iata:
+          type: string
+        icao:
+          type: string
+          
+    FlightLandOrDep:
+      type: object
+      properties:
+        airport:
+          $ref: '#/components/schemas/Airport'
+        scheduled:
+          type: integer
+          format: time
+        actual:
+          type: integer
+          format: time
+        delay:
+          type: integer
+          format: int32
+        
+    FlightPrediction:
+      type: object
+      properties:
+        cancellingProbability:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        divertingProbability:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        expectedDelay:
+          type: integer
+          format: int32
+        expectedFlightDuration:
+          type: integer
+          format: int32
+          
+    FlightsStatistics:
+      type: object
+      properties:
+        total_flights:
+          type: integer
+          format: int64
+        average_delay:
+          type: number
+          format: float
+        max_delay:
+          type: integer
+          format: int32
+        cancellation_percentage:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+        diversion_percentage:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100

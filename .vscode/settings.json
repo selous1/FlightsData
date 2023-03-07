@@ -6,4 +6,7 @@
     "python.terminal.executeInFileDir": true,
     "editor.formatOnSave": true,
     "editor.lineNumbers": "on",
+    "cSpell.words": [
+        "ints"
+    ],
 }

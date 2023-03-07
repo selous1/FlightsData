@@ -12,8 +12,9 @@
 		"yzhang.markdown-all-in-one",
 		// git
 		"mhutchie.git-graph",
-		// comments
+		// comments && spellchecking
 		"aaron-bond.better-comments",
+		"streetsidesoftware.code-spell-checker",
 		// fun
 		"tonybaloney.vscode-pets"
 	],

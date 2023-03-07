@@ -201,9 +201,9 @@ User will obtain a forecast for a future flight
 
 sequenceDiagram
 
-  Client->>API: asks for information <br> about flight $id
-	API->>Database: queries database <br> about information <br> regarding flight $id
-	Database->>API: sends result from <br> the previous query <br> back to the API
+  Client->>API: gives information about <br> flight to be forecasted
+	API->>Prediction Model: asks prediction model <br> for a forecast with <br> the given information
+	Prediction Model->>API: sends result from the <br> prediction back to the API
   API->>Client: sends result <br> back to the client
 
 ```
@@ -252,6 +252,16 @@ User will obtain information about airlines and their reliability
 ```
 
 - **Use Case Diagram:**
+```mermaid
+
+sequenceDiagram
+
+  Client->>API: gives information about <br> airlines to be ranked
+	API->>Database: queries database <br> with the given information
+	Database->>API: sends result from the <br> previous query back to the API
+  API->>Client: sends result <br> back to the client
+
+```
 
 ### **Use Case 5:**
 
@@ -269,7 +279,16 @@ Admin will add the information about a flight to the database
 ```
 
 - **Use Case Diagram:**
+```mermaid
 
+sequenceDiagram
+
+  Admin->>API: gives information about <br> flight to be added
+	API->>Database: adds flight to the database
+	Database-->>API: ㅤ 
+  API-->>Admin: ㅤ
+
+```
 
 ### **Use Case 6:**
 
@@ -287,6 +306,16 @@ Admin will update the information about a flight on the database
 ```
 
 - **Use Case Diagram:**
+```mermaid
+
+sequenceDiagram
+
+  Admin->>API: gives information about <br> flight to be updated
+	API->>Database: updates flight on the database
+	Database-->>API: ㅤ 
+  API-->>Admin: ㅤ
+
+```
 
 ### **Use Case 7:**
 
@@ -304,15 +333,13 @@ Admin will delete the information about a flight from the database
 ```
 
 - **Use Case Diagram:**
-
-#### Use Case Diagram example:
-
 ```mermaid
+
 sequenceDiagram
-    autonumber
-    Student->>Admin: Can I enrol this semester?
-    Note left of Student: Exam results may <br> be delayed
-    Admin-->>Student: Enrolment success
-    Admin->>Professor: Assign student to tutor
-    Professor-->>Admin: Student is assigned
+
+  Admin->>API: gives information about <br> flight to be deleted
+	API->>Database: deletes flight from the database
+	Database-->>API: ㅤ 
+  API-->>Admin: ㅤ
+
 ```

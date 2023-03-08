@@ -182,3 +182,26 @@ sequenceDiagram
   API Gateway-->>Admin: Sends resultㅤ
 
 ```
+
+<div style="page-break-after: always;"></div>
+
+## Architecture and Functional Diagrams:
+
+### Architecture:
+
+![cloud-architecture-diagram](assets/cloud-architecture-diagram.png)
+
+### Functional:
+
+![functional-diagram](assets/functional-diagram.png)
+
+
+## Group
+
+
+Group 16:
+- Robert Morosan - 54456
+- Inês Fragoso - 54454
+- Santiago Benites - 54392
+- Diogo Ferreira - 54407
+- João Ferreira - 55312

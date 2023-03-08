@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: USA Flights API
-  description: This API allows the user to obtain information and statistics about ?2019? flights and forecast future flights with this data.
+  description: This API allows the user to obtain information and statistics flights that occured in 2020, 2021 and 2022. It also allows users to forecast future flights with this data.
 tags:
   - name: flights
     description: Obtain information about flights and get flight forecasts
@@ -11,13 +11,13 @@ tags:
   - name: admin
     description: Add a new flight or update an existing one
 paths:
-  /flights:
+  /flights/statistics:
     get:
       tags:
         - flights
-      summary: Obtain data regarding flights
-      description: Obtain a list of flights and their statistics, given certain criteria.
-      operationId: getFlights
+      summary: Obtain statistics regarding flights
+      description: Obtain flight statistics, given certain criteria.
+      operationId: getFlightsStatistics
       parameters:
         - name: limit
           in: query
@@ -75,10 +75,6 @@ paths:
                 properties:
                   statistics:
                     $ref: '#/components/schemas/FlightsStatistics'
-                  flights:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Flight'
         '400':
           description: Invalid Parameters
   /flights/{flight-number}:
@@ -166,6 +162,31 @@ paths:
                 $ref: '#/components/schemas/FlightPrediction'
         '400':
           description: Invalid Parameters
+  /airlines/{airline-code}:
+    get:
+      tags:
+        - airlines
+      summary: Obtain airline data by airline code
+      description: Obtain airline data given an airline code
+      operationId: getAirlineByCode
+      parameters:
+        - name: airline-code
+          in: path
+          description: Unique carrier code of the airline to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airline'
+        '400':
+          description: Invalid Airline Code
+        '404':
+          description: Airline Not Found
   /airlines/rank:
     get:
       tags:
@@ -304,7 +325,27 @@ paths:
           description: Flight not Found
         '405':
           description: Invalid input
-    
+    delete:
+      tags:
+        - admin
+      summary: Delete an existing flight
+      description: The admin can delete an existing flight by its flight number
+      operationId: deleteFlight
+      parameters:
+        - name: flight-number
+          description: Number of the flight to delete
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: Successful Deletion
+        '404':
+          description: Flight not Found
+        '405':
+          description: Invalid input
 components:
   schemas:
     Flight:
@@ -325,8 +366,8 @@ components:
           type: boolean
         tailNumber:
           type: string
-        airline:
-          $ref: '#/components/schemas/Airline'
+        airlineCode:
+          type: string
         departure:
           $ref: '#/components/schemas/FlightLandOrDep'
         arrival:
@@ -336,6 +377,8 @@ components:
       type: object
       properties:
         name:
+          type: string
+        code:
           type: string
         iata:
           type: string
@@ -355,21 +398,12 @@ components:
         statistics:
           $ref: '#/components/schemas/FlightsStatistics'
           
-    Airport:
-      type: object
-      properties:
-        name:
-          type: string
-        iata:
-          type: string
-        icao:
-          type: string
-          
     FlightLandOrDep:
       type: object
       properties:
-        airport:
-          $ref: '#/components/schemas/Airport'
+        airportId:
+          type: integer
+          format: int32
         scheduled:
           type: integer
           format: time
@@ -379,7 +413,6 @@ components:
         delay:
           type: integer
           format: int32
-        
     FlightPrediction:
       type: object
       properties:
@@ -394,9 +427,6 @@ components:
           minimum: 0
           maximum: 1
         expectedDelay:
-          type: integer
-          format: int32
-        expectedFlightDuration:
           type: integer
           format: int32
           

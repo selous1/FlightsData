@@ -123,7 +123,7 @@ sequenceDiagram
 
 Admin adds information about a flight to the database.
 
-- **Endpoint:** `/admin/flight`
+- **Endpoint:** `/admin/flights`
   
 - **REST Type:** `POST`
   
@@ -136,8 +136,8 @@ sequenceDiagram
 	API Gateway->>Admin Microservice: Route request to <br> corresponding microservice
   Admin Microservice->>Databases: Inserts data
 	Databases-->>Admin Microservice: Sends status of insertion
-  Admin Microservice->>API Gateway: Sends the newly created flight <br> or an error message
-  API Gateway->>Admin: Sends result
+  Admin Microservice-->>API Gateway: Sends the newly created flight <br> or an error message
+  API Gateway-->>Admin: Sends result
 
 ```
 
@@ -156,8 +156,8 @@ sequenceDiagram
 	API Gateway->>Admin Microservice: Route request to <br> corresponding microservice
   Admin Microservice->>Databases: Updates data
 	Databases-->>Admin Microservice: Sends status of insertion
-  Admin Microservice->>API Gateway: Sends the updated flight <br> or an error message
-  API Gateway->>Admin: Sends result
+  Admin Microservice-->>API Gateway: Sends the updated flight <br> or an error message
+  API Gateway-->>Admin: Sends result
 
 ```
 
@@ -165,7 +165,7 @@ sequenceDiagram
 
 Admin deletes the information of a flight from the database
 
-- **Endpoint:** `/admin/flight/{flight-number}`
+- **Endpoint:** `/admin/flight/{:flight-number}`
   
 - **REST Type:** `DELETE`
 

@@ -2,14 +2,14 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: USA Flights API
-  description: This API allows the user to obtain information and statistics flights that occured in 2020, 2021 and 2022. It also allows users to forecast future flights with this data.
+  description: This API allows the user to obtain information and statistics flights that occured in 2020, 2021 and 2022. It also allows users to forecast future flights with this data. Plus, admins can add new flights, update flight information and delete existing ones.
 tags:
   - name: flights
     description: Obtain information about flights and get flight forecasts
   - name: airlines
     description: Obtain information about airlines and their reliability
   - name: admin
-    description: Add a new flight or update an existing one
+    description: Add a new flight, update an existing one or delete an existing flight
 paths:
   /flights/statistics:
     get:
@@ -25,12 +25,7 @@ paths:
           required: false
           schema:
             type: integer
-        - name: only-statistics
-          in: query
-          description: Only return statistics about flights, ignoring flight details
-          required: false
-          schema:
-            type: boolean
+            format: int32
         - name: airline-code
           in: query
           description: Filter results by airlines
@@ -122,34 +117,34 @@ paths:
         - name: airline-code
           in: query
           description: Airline for future flight
-          required: false
+          required: true
           schema:
             type: string
         - name: origin-airport-id
           in: query
           description: Origin airport for future flight
-          required: false
+          required: true
           schema:
             type: integer
             format: int32
         - name: dest-airport-id
           in: query
           description: Destination airport for future flight
-          required: false
+          required: true
           schema:
             type: integer
             format: int32
         - name: departure-time
           in: query
           description: Departure time for future flight
-          required: false
+          required: true
           schema:
             type: integer
             format: time
         - name: arrival-time
           in: query
           description: Arrival time for future flight
-          required: false
+          required: true
           schema:
             type: integer
             format: time
@@ -195,6 +190,40 @@ paths:
       description: Obtain airline ranks, given weights and specifications for calculating it
       operationId: getAirlineRanks
       parameters:
+        - name: limit
+          in: query
+          description: Limit the number of results
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: cancellation-weight
+          in: query
+          description: Weight of cancellations in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: diversion-weight
+          in: query
+          description: Weight of diversions in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
+        - name: delay-weight
+          in: query
+          description: Weight of delays in calculating the airline rank
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 100
         - name: airline-code
           in: query
           description: Rank the given airline
@@ -229,33 +258,6 @@ paths:
           schema:
             type: integer
             format: date
-        - name: cancellation-weight
-          in: query
-          description: Weight of cancellations in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
-        - name: diversion-weight
-          in: query
-          description: Weight of diversions in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
-        - name: delay-weight
-          in: query
-          description: Weight of delays in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
       responses:
         '200':
           description: Successful Operation

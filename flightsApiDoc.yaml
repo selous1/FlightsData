@@ -9,7 +9,7 @@ tags:
   - name: airlines
     description: Obtain information about airlines and their reliability
   - name: admin
-    description: Add a new flight or update an existing one
+    description: Add a new flight, update an existing one or delete an existing flight
 paths:
   /flights/statistics:
     get:

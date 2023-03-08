@@ -3,7 +3,6 @@ title: proj-information
 date: 01-03-2023
 tags:
   - cen
-aliases: []
 ---
 
 # Dataset: [Flight Data](https://www.kaggle.com/datasets/robikscube/flight-delay-dataset-20182022?select=Combined_Flights_2022.csv)

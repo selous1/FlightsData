@@ -26,12 +26,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: only-statistics
-          in: query
-          description: Only return statistics about flights, ignoring flight details
-          required: false
-          schema:
-            type: boolean
         - name: airline-code
           in: query
           description: Filter results by airlines

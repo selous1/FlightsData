@@ -98,7 +98,29 @@ sequenceDiagram
 
 ```
 
-### **Use Case 5:**
+### **Use Case 5:** 
+
+User obtains airline information by airline code.
+
+- **Endpoint:** `/airline/{airline-code}`
+
+- **REST Type:** `GET`
+
+- **Use Case Diagram:**
+```mermaid
+
+sequenceDiagram
+
+  Client->>API Gateway: Requests for information <br> about airline $id
+  API Gateway->>Airlines Microservice: Sends request to <br> corresponding microservice
+	Airlines Microservice->>Database: Queries database <br> about information <br> regarding airline $id
+  Database->>Airlines Microservice: Sends result from <br> the previous query <br>
+	Airlines Microservice->>API Gateway: Sends result
+  API Gateway->>Client: Sends result
+
+```
+
+### **Use Case 6:**
 
 Admin adds information about a flight to the database.
 
@@ -112,15 +134,15 @@ Admin adds information about a flight to the database.
 sequenceDiagram
 
   Admin->>API Gateway: Provides information about <br> flight to be added
-	API Gateway->>Flights Microservice: Route request to <br> corresponding microservice
-  Flights Microservice->>Databases: Inserts data
-	Databases-->>Flights Microservice: Sends status of insertion
-  Flights Microservice->>API Gateway: Sends the newly created flight <br> or an error message
+	API Gateway->>Admin Microservice: Route request to <br> corresponding microservice
+  Admin Microservice->>Databases: Inserts data
+	Databases-->>Admin Microservice: Sends status of insertion
+  Admin Microservice->>API Gateway: Sends the newly created flight <br> or an error message
   API Gateway->>Admin: Sends result
 
 ```
 
-### **Use Case 6:**
+### **Use Case 7:**
 
 Admin updates the information of a flight on the database by flight number.
 
@@ -132,15 +154,15 @@ Admin updates the information of a flight on the database by flight number.
 sequenceDiagram
 
   Admin->>API Gateway: Provides information about <br> flight to be updated
-	API Gateway->>Flights Microservice: Route request to <br> corresponding microservice
-  Flights Microservice->>Databases: Updates data
-	Databases-->>Flights Microservice: Sends status of insertion
-  Flights Microservice->>API Gateway: Sends the updated flight <br> or an error message
+	API Gateway->>Admin Microservice: Route request to <br> corresponding microservice
+  Admin Microservice->>Databases: Updates data
+	Databases-->>Admin Microservice: Sends status of insertion
+  Admin Microservice->>API Gateway: Sends the updated flight <br> or an error message
   API Gateway->>Admin: Sends result
 
 ```
 
-### **Use Case 7:**
+### **Use Case 8:**
 
 Admin deletes the information of a flight from the database
 
@@ -154,10 +176,10 @@ Admin deletes the information of a flight from the database
 sequenceDiagram
 
   Admin->>API Gateway: Provides information about <br> flight to be deleted
-	API Gateway->>Flights Microservice: Route request to <br> corresponding microservice
-  Flights Microservice->>Databases: Deletes data
-	Databases-->>Flights Microservice: Sends status of deletion
-  Flights Microservice-->>API Gateway: Sends status of deletion
+	API Gateway->>Admin Microservice: Route request to <br> corresponding microservice
+  Admin Microservice->>Databases: Deletes data
+	Databases-->>Admin Microservice: Sends status of deletion
+  Admin Microservice-->>API Gateway: Sends status of deletion
   API Gateway-->>Admin: Sends resultㅤ
 
 ```

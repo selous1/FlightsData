@@ -8,6 +8,8 @@ tags:
     description: Obtain information about flights and get flight forecasts
   - name: airlines
     description: Obtain information about airlines and their reliability
+  - name: admin
+    description: Add a new flight or update an existing one
 paths:
   /flights:
     get:
@@ -168,6 +170,9 @@ paths:
     get:
       tags:
         - airlines
+      summary: Obtain airline ranks
+      description: Obtain airline ranks, given weights and specifications for calculating it
+      operationId: getAirlineRanks
       parameters:
         - name: airline-code
           in: query
@@ -239,6 +244,67 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AirlineRank'
+  /admin/flights:
+    post:
+      tags:
+        - admin
+      summary: Add a new flight
+      description: The admin can add a new flight and its information
+      operationId: postFlight
+      requestBody:
+        description: Add a new flight
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Flight'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flight'
+        '405':
+          description: Invalid input
+  /admin/flights/{flight-number}:
+    put:
+      tags:
+        - admin
+      summary: Update an existing flight
+      description: The admin can update an existing flight's information by its flight number
+      operationId: putFlight
+      parameters:
+        - name: flight-number
+          description: Number of the flight to update
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Update an existing flight
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Flight'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flight'
+        '404':
+          description: Flight not Found
+        '405':
+          description: Invalid input
+    
 components:
   schemas:
     Flight:
@@ -257,14 +323,14 @@ components:
           type: boolean
         diverted:
           type: boolean
+        tailNumber:
+          type: string
         airline:
           $ref: '#/components/schemas/Airline'
         departure:
           $ref: '#/components/schemas/FlightLandOrDep'
         arrival:
           $ref: '#/components/schemas/FlightLandOrDep'
-        tailNumber:
-          type: string
           
     Airline:
       type: object

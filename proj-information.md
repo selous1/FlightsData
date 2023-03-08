@@ -10,336 +10,154 @@ aliases: []
 
 # What do we want to serve (Value + API):
 
-### **Use cases:**
-
-The template for use case requests and responses is as follows:
-```rust
-{
-	 acronym: type = "description",
-	*acronym: type = "description" // in the case of required args
-}
-```
-**Note:** This template is complete adlib. If there is a standard way for doing it, please inform us so we can alter it accordingly.
-
 ### **Use Case 1:** 
 
-User will obtain data regarding flights
+User obtains statistics about flights according to certain criteria.
 
-- **Endpoint:** `/flights`
+- **Endpoint:** `/flights/statistics`
 
 - **REST Type:** `GET`
-
-- **Request Parameters:**
-```json
-{
-  "limit": "integer",
-  "only-statistics": "boolean",
-  "airline-code":"string",
-  "origin-airport-id":"integer",
-  "dest-airport-id":"integer",
-  "start-date":"date",
-  "end-date":"date"
-}
-```
-
-- **Response Parameters:**
-```json
-{
-  "statistics": {
-    "total_flights": "integer",
-    "average_delay": "integer",
-    "max_delay": "integer",
-    "cancellation_percentage": "integer",
-    "diversion_percentage": "integer"
-  },
-  "flights": [
-    {
-      "flightDate": "date",
-      "flightNumber": "integer",
-      "flightDuration": "integer",
-      "cancelled": true,
-      "diverted": true,
-      "airline": {
-        "name": "string",
-        "iata": "string",
-        "icao": "string"
-      },
-      "departure": {
-        "airport": {
-          "name": "string",
-          "iata": "string",
-          "icao": "string"
-        },
-        "scheduled": "integer",
-        "actual": "integer",
-        "delay": "integer"
-      },
-      "arrival": {
-        "airport": {
-          "name": "string",
-          "iata": "string",
-          "icao": "string"
-        },
-        "scheduled": "integer",
-        "actual": "integer",
-        "delay": "integer"
-      },
-      "tailNumber": "string"
-    }
-  ]
-}
-```
 
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Client->>API: gives criteria about <br> flights to the API
-	API->>Database: queries database <br> using given criteria
-	Database->>API: sends result from <br> the previous query <br> back to the API
-  API->>Client: sends result <br> back to the client
+  Client->>API Gateway: Specifies criteria about <br> flights to the API
+	API Gateway->>Flights Microservice: Sends request to <br> corresponding microservice
+  Flights Microservice->>Database: Queries database <br> about flight data <br> using given criteria
+	Database->>Flights Microservice: Sends result from <br> the previous query <br>
+  Flights Microservice->>API Gateway: Calculates statistics and sends
+  API Gateway->>Client: Sends result <br>
 
 ```
 
 ### **Use Case 2:** 
 
-User will obtain flight data by flight number
+User obtains flight information by flight number.
 
-- **Endpoint:** `/flights/:flight-number`
+- **Endpoint:** `/flights/{:flight-number}`
 
 - **REST Type:** `GET`
-
-- **Request Parameters:**
-```json
-{
-  *"flight-number": integer
-}
-```
-
-- **Response Parameters:**
-```json
-{
-  "flightDate": "date",
-  "flightNumber": "integer",
-  "flightDuration": "integer",
-  "cancelled": true,
-  "diverted": true,
-  "airline": {
-    "name": "string",
-    "iata": "string",
-    "icao": "string"
-  },
-  "departure": {
-    "airport": {
-      "name": "string",
-      "iata": "string",
-      "icao": "string"
-    },
-    "scheduled": "integer",
-    "actual": "integer",
-    "delay": "integer"
-  },
-  "arrival": {
-    "airport": {
-      "name": "string",
-      "iata": "string",
-      "icao": "string"
-    },
-    "scheduled": "integer",
-    "actual": "integer",
-    "delay": "integer"
-  },
-  "tailNumber": "string"
-}
-```
 
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Client->>API: asks for information <br> about flight $id
-	API->>Database: queries database <br> about information <br> regarding flight $id
-	Database->>API: sends result from <br> the previous query <br> back to the API
-  API->>Client: sends result <br> back to the client
+  Client->>API Gateway: Requests for information <br> about flight $id
+  API Gateway->>Flights Microservice: Sends request to <br> corresponding microservice
+	Flights Microservice->>Database: Queries database <br> about information <br> regarding flight $id
+  Database->>Flights Microservice: Sends result from <br> the previous query <br>
+	Flights Microservice->>API Gateway: Sends result
+  API Gateway->>Client: Sends result
 
 ```
 
 ### **Use Case 3:** 
 
-User will obtain a forecast for a future flight
+User provides a future flight details and obtains a forecast on the probability of the flight being cancelled, diverted and delayed.
 
 - **Endpoint:** `/flights/forecast`
 
 - **REST Type:** `GET`
 
-- **Request Parameters:**
-```json
-{
- *"flight-date":"string",
-  "airline-code":"string",
-  "origin-airport-id":"integer",
-  "dest-airport-id":"integer",
-  "departure-time":"integer",
-  "arrival-time":"integer"
-}
-```
-
-- **Response Parameters:**
-```json
-{
-  "cancellingProbability": "integer",
-  "divertingProbability": "integer",
-  "expectedDelay": "integer",
-  "expectedFlightDuration": "integer"
-}
-```
-
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Client->>API: gives information about <br> flight to be forecasted
-	API->>Prediction Model: asks prediction model <br> for a forecast with <br> the given information
-	Prediction Model->>API: sends result from the <br> prediction back to the API
-  API->>Client: sends result <br> back to the client
+  Client->>API Gateway: Provides information about <br> the flight to be forecasted
+  API Gateway->>Forecast Microservice: Route request to <br> corresponding microservice
+	Forecast Microservice->>Prediction Model: Asks prediction model <br> for a forecast with <br> the given information
+	Prediction Model->>Forecast Microservice: Sends result from the <br> prediction
+  Forecast Microservice->>API Gateway: Sends result
+  API Gateway->>Client: Sends result <br>
 
 ```
 
 ### **Use Case 4:** 
 
-User will obtain information about airlines and their reliability
+User obtains the ranking of airlines and their reliability
 
 - **Endpoint:** `/airline/rank`
 
 - **REST Type:** `GET`
 
-- **Request Parameters:**
-```json
-{
-  "airline-code": "string",
-  "origin-airport-id": "integer",
-  "dest-airport-id": "integer",
-  "start-date": "date",
-  "end-date": "date",
-  "cancellation-weight": "integer",
-  "diversion-weight": "integer",
-  "delay-weight": "integer"
-}
-```
-
-- **Response Parameters:**
-```json
-[
-  {
-    "rankScore": "integer",
-    "airline": {
-      "name": "string",
-      "iata": "string",
-      "icao": "string"
-    },
-    "statistics": {
-      "total_flights": "integer",
-      "average_delay": "integer",
-      "max_delay": "integer",
-      "cancellation_percentage": "integer",
-      "diversion_percentage": "integer"
-    }
-  }
-]
-```
-
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Client->>API: gives information about <br> airlines to be ranked
-	API->>Database: queries database <br> with the given information
-	Database->>API: sends result from the <br> previous query back to the API
-  API->>Client: sends result <br> back to the client
+  Client->>API Gateway: Requests ranking of airlines <br> and provides information about <br> ranking scope and priorities
+  API Gateway->>Ranking Microservice: Route request to <br> corresponding microservice
+	Ranking Microservice->>Flights Microservice: Requests statistics about <br> flights according to criteria
+  Ranking Microservice->>Airlines Microservice: Requests airlines information
+	Ranking Microservice->>API Gateway: Calculates ranking based <br> on obtain information <br> and returns the result
+  API Gateway->>Client: Sends result <br>
 
 ```
 
 ### **Use Case 5:**
 
-Admin will add the information about a flight to the database
+Admin adds information about a flight to the database.
 
-- **Endpoint:** `/admin`
+- **Endpoint:** `/admin/flight`
   
 - **REST Type:** `POST`
   
-- **Request Parameters:**
-```json
-```
-- **Response Parameters:**
-```json
-```
-
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Admin->>API: gives information about <br> flight to be added
-	API->>Database: adds flight to the database
-	Database-->>API: ㅤ 
-  API-->>Admin: ㅤ
+  Admin->>API Gateway: Provides information about <br> flight to be added
+	API Gateway->>Flights Microservice: Route request to <br> corresponding microservice
+  Flights Microservice->>Databases: Inserts data
+	Databases-->>Flights Microservice: Sends status of insertion
+  Flights Microservice->>API Gateway: Sends the newly created flight <br> or an error message
+  API Gateway->>Admin: Sends result
 
 ```
 
 ### **Use Case 6:**
 
-Admin will update the information about a flight on the database
+Admin updates the information of a flight on the database by flight number.
 
-- **Endpoint:** `/admin`
+- **Endpoint:** `/admin/flight/{:flight-number}`
   
-- **REST Type:** `PUT`
-  
-- **Request Parameters:**
-```json
-```
-- **Response Parameters:**
-```json
-```
-
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Admin->>API: gives information about <br> flight to be updated
-	API->>Database: updates flight on the database
-	Database-->>API: ㅤ 
-  API-->>Admin: ㅤ
+  Admin->>API Gateway: Provides information about <br> flight to be updated
+	API Gateway->>Flights Microservice: Route request to <br> corresponding microservice
+  Flights Microservice->>Databases: Updates data
+	Databases-->>Flights Microservice: Sends status of insertion
+  Flights Microservice->>API Gateway: Sends the updated flight <br> or an error message
+  API Gateway->>Admin: Sends result
 
 ```
 
 ### **Use Case 7:**
 
-Admin will delete the information about a flight from the database
+Admin deletes the information of a flight from the database
 
-- **Endpoint:** `/admin`
+- **Endpoint:** `/admin/flight/{flight-number}`
   
 - **REST Type:** `DELETE`
-  
-- **Request Parameters:**
-```json
-```
-- **Response Parameters:**
-```json
-```
 
 - **Use Case Diagram:**
 ```mermaid
 
 sequenceDiagram
 
-  Admin->>API: gives information about <br> flight to be deleted
-	API->>Database: deletes flight from the database
-	Database-->>API: ㅤ 
-  API-->>Admin: ㅤ
+  Admin->>API Gateway: Provides information about <br> flight to be deleted
+	API Gateway->>Flights Microservice: Route request to <br> corresponding microservice
+  Flights Microservice->>Databases: Deletes data
+	Databases-->>Flights Microservice: Sends status of deletion
+  Flights Microservice-->>API Gateway: Sends status of deletion
+  API Gateway-->>Admin: Sends resultㅤ
 
 ```

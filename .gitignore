@@ -4,6 +4,7 @@
 
 # dataset:
 dataset/
+!dataset/place_dataset_here.txt
 
 # ------------------ Generated ------------------
 

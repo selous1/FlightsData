@@ -3,8 +3,7 @@
 **/logs
 
 # dataset:
-dataset/
-!dataset/place_dataset_here.txt
+dataset/*.csv
 
 # ------------------ Generated ------------------
 

@@ -3,18 +3,22 @@
 	// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
-		// markdown
+		// markdown && notation
 		"yzane.markdown-pdf",
 		"bierner.markdown-mermaid",
 		"bierner.markdown-yaml-preamble",
 		"bierner.markdown-preview-github-styles",
 		"AlanWalk.markdown-navigation",
 		"yzhang.markdown-all-in-one",
+		"hediet.vscode-drawio",
+		"fabiospampinato.vscode-todo-plus",
 		// git
 		"mhutchie.git-graph",
 		// comments && spellchecking
 		"aaron-bond.better-comments",
 		"streetsidesoftware.code-spell-checker",
+		// openAPI
+		"42Crunch.vscode-openapi",
 		// fun
 		"tonybaloney.vscode-pets"
 	],

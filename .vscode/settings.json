@@ -7,7 +7,8 @@
     "editor.formatOnSave": true,
     "editor.lineNumbers": "on",
     "cSpell.words": [
-        "ints"
+        "ints",
+        "openapi"
     ],
     "markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js",
 }

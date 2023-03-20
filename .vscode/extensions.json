@@ -19,6 +19,8 @@
 		"streetsidesoftware.code-spell-checker",
 		// openAPI
 		"42Crunch.vscode-openapi",
+		// docker
+		"ms-azuretools.vscode-docker",
 		// fun
 		"tonybaloney.vscode-pets"
 	],

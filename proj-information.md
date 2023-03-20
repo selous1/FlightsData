@@ -40,6 +40,9 @@ User obtains flight information by flight number.
 - **REST Type:** `GET`
 
 - **Use Case Diagram:**
+
+<div style="page-break-after: always;"></div>
+
 ```mermaid
 
 sequenceDiagram

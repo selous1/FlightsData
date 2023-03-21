@@ -4,6 +4,7 @@
 
 # dataset:
 dataset/*.csv
+dataset/*.parquet
 
 # ------------------ Generated ------------------
 

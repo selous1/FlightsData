@@ -3,6 +3,7 @@ import six
 
 from swagger_server.models.flight import Flight  # noqa: E501
 from swagger_server import util
+from google.cloud import storage
 
 
 def delete_flight(flight_number):  # noqa: E501

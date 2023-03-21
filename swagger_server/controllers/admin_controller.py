@@ -76,4 +76,43 @@ def put_flight(body, flight_number):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
+
+
+
+    def flatten_dict(dd, separator='_', prefix=''):
+        return { prefix + separator + k if prefix else k : v
+                 for kk, vv in dd.items()
+                 for k, v in flatten_dict(vv, separator, kk).items()
+                 } if isinstance(dd, dict) else { prefix : dd }
+    
+    def represents_int(s):
+        try: 
+            int(s)
+        except ValueError:
+            return False
+        else:
+            return True
+
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    client = bigquery.Client()
+
+
+    # Turn body to dict of values and list of columns
+    flightDict = flatten_dict(body.to_dict())
+    Columns = ["Flight_Number_Operating_Airline","AirTime","Cancelled","Diverted","Tail_Number","Airline","OriginAirportID","OriginAirportSeqID","DepTime","DepDelayMinutes","DestAirportID","DestAirportSeqID","ArrTime","ArrDelayMinutes"]
+    values = list(flightDict.values())
+
+    # Create Set part of the query
+    start = f"FlightDate = CAST('{values[0]}' AS Date), "
+    for val,col in zip(values[1:],Columns):
+        if represents_int(val):
+            start = start + f"{col} = {val}, "
+        else:
+            start = start + f"{col} = '{val}', "
+
+    # Combine the entire query
+    query = f"UPDATE cnproject-381016.cn54392dataset.flight_table SET {start[:-2]} WHERE Flight_Number_Operating_Airline = {flight_number}; "
+
+    results = client.query(query)
+    
     return 'do some magic!'

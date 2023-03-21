@@ -33,13 +33,22 @@ def post_flight(body):  # noqa: E501
     if connexion.request.is_json:
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
 
+    def flatten_dict(dd, separator='_', prefix=''):
+        return { prefix + separator + k if prefix else k : v
+                 for kk, vv in dd.items()
+                 for k, v in flatten_dict(vv, separator, kk).items()
+                 } if isinstance(dd, dict) else { prefix : dd }
 
 
     #os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
     #client = bigquery.Client()
 
-    flightDict = flatten(body.to_dict())
+    flightDict = flatten_dict(body.to_dict())
     print(flightDict)
+
+
+    #['FlightDate','Airline','ArrTime','cancelled','diverted','tail_number','airline_code','departure_airport_id','departure_scheduled','departure_actual', 'departure_delay','arrival_airport_id','arrival_scheduled', 'arrival_actual', 'arrival_delay']
+
     #query = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('cnproject-381016.cn54392dataset.flight_table', columns, values)
 
     #results = client.query(query)

@@ -33,19 +33,18 @@ def post_flight(body):  # noqa: E501
     if connexion.request.is_json:
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
 
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
-    client = bigquery.Client()
 
-    query = """
-        SELECT *
-        FROM `cnproject-381016.cn54392dataset.flight_table`
-    """
 
-    results = client.query(query)
+    #os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    #client = bigquery.Client()
 
-    # Prints all results of the query, will lead to a lot of jargon
-    for res in results:
-        print(res)
+    flightDict = flatten(body.to_dict())
+    print(flightDict)
+    #query = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('cnproject-381016.cn54392dataset.flight_table', columns, values)
+
+    #results = client.query(query)
+
+    #print(results)
 
     return 'do some magic!'
 

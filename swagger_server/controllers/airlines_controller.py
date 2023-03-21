@@ -4,6 +4,8 @@ import six
 from swagger_server.models.airline import Airline  # noqa: E501
 from swagger_server.models.airline_rank import AirlineRank  # noqa: E501
 from swagger_server import util
+from google.cloud import bigquery
+import os
 
 
 def get_airline_by_code(airline_code):  # noqa: E501
@@ -19,7 +21,8 @@ def get_airline_by_code(airline_code):  # noqa: E501
     return 'do some magic!'
 
 
-def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=None, delay_weight=None, airline_code=None, origin_airport_id=None, dest_airport_id=None, start_date=None, end_date=None):  # noqa: E501
+def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=None, delay_weight=None, 
+                      airline_code=None, origin_airport_id=None, dest_airport_id=None, start_date=None, end_date=None):  # noqa: E501
     """Obtain airline ranks
 
     Obtain airline ranks, given weights and specifications for calculating it # noqa: E501
@@ -45,4 +48,24 @@ def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=Non
 
     :rtype: List[AirlineRank]
     """
+
+    # get data from bigquery (bucket)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    client = bigquery.Client()
+
+    table_name = "cnproject-381016.cn54392dataset.flight_table";
+
+    query = f"SELECT * FROM {table_name}"
+
+    query_job = client.query(query)
+
+    for row in query_job:
+        print(row)
+
+    print("oi")
+
+    # rank
+
+    # return
+    
     return 'do some magic!'

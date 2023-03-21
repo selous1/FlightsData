@@ -1,116 +1,117 @@
 openapi: 3.0.0
 info:
   title: USA Flights API
-  description: "This API allows the user to obtain information and statistics flights\
+  description:
+    "This API allows the user to obtain information and statistics flights\
     \ that occured in 2020, 2021 and 2022. It also allows users to forecast future\
     \ flights with this data. Plus, admins can add new flights, update flight information\
     \ and delete existing ones."
   version: 1.0.0
 servers:
-- url: /
+  - url: /
 tags:
-- name: flights
-  description: Obtain information about flights and get flight forecasts
-- name: airlines
-  description: Obtain information about airlines and their reliability
-- name: admin
-  description: Add a new flight and update or delete an existing one
+  - name: flights
+    description: Obtain information about flights and get flight forecasts
+  - name: airlines
+    description: Obtain information about airlines and their reliability
+  - name: admin
+    description: Add a new flight and update or delete an existing one
 paths:
   /flights/statistics:
     get:
       tags:
-      - flights
+        - flights
       summary: Obtain statistics regarding flights
       description: "Obtain flight statistics, given certain criteria."
       operationId: get_flights_statistics
       parameters:
-      - name: limit
-        in: query
-        description: Limit the number of results
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: airline_code
-        in: query
-        description: Filter results by airlines
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: origin_airport_id
-        in: query
-        description: Filter results by the origin airport
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: dest_airport_id
-        in: query
-        description: Filter results by the destination airport
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: start_date
-        in: query
-        description: Filter results with a flight date after the given date
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: date
-      - name: end_date
-        in: query
-        description: Filter results with a flight date before the given date
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: date
+        - name: limit
+          in: query
+          description: Limit the number of results
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: airline_code
+          in: query
+          description: Filter results by airlines
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: origin_airport_id
+          in: query
+          description: Filter results by the origin airport
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: dest_airport_id
+          in: query
+          description: Filter results by the destination airport
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: start_date
+          in: query
+          description: Filter results with a flight date after the given date
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: date
+        - name: end_date
+          in: query
+          description: Filter results with a flight date before the given date
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: date
       responses:
         "200":
           description: Successful Operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: "#/components/schemas/inline_response_200"
         "400":
           description: Invalid Parameters
       x-openapi-router-controller: swagger_server.controllers.flights_controller
   /flights/{flight-number}:
     get:
       tags:
-      - flights
+        - flights
       summary: Obtain flight data by flight number
       description: Obtain flight data given a flight number
       operationId: get_flight_by_number
       parameters:
-      - name: flight_number
-        in: path
-        description: Number of the flight to return
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int32
+        - name: flight_number
+          in: path
+          description: Number of the flight to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: Successful Operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Flight'
+                $ref: "#/components/schemas/Flight"
         "400":
           description: Invalid Flight Number
         "404":
@@ -119,98 +120,99 @@ paths:
   /flights/forecast:
     get:
       tags:
-      - flights
+        - flights
       summary: Obtain a forecast for a future flight
-      description: "Obtain predictions for a future flight, given a date and other\
+      description:
+        "Obtain predictions for a future flight, given a date and other\
         \ details"
       operationId: get_flight_forecast
       parameters:
-      - name: flight_date
-        in: query
-        description: Date for future flight
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-          format: date
-      - name: airline_code
-        in: query
-        description: Airline for future flight
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: origin_airport_id
-        in: query
-        description: Origin airport for future flight
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: dest_airport_id
-        in: query
-        description: Destination airport for future flight
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: departure_time
-        in: query
-        description: Departure time for future flight
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: time
-      - name: arrival_time
-        in: query
-        description: Arrival time for future flight
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: time
+        - name: flight_date
+          in: query
+          description: Date for future flight
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: date
+        - name: airline_code
+          in: query
+          description: Airline for future flight
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: origin_airport_id
+          in: query
+          description: Origin airport for future flight
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: dest_airport_id
+          in: query
+          description: Destination airport for future flight
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: departure_time
+          in: query
+          description: Departure time for future flight
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: time
+        - name: arrival_time
+          in: query
+          description: Arrival time for future flight
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: time
       responses:
         "200":
           description: Successful Operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FlightPrediction'
+                $ref: "#/components/schemas/FlightPrediction"
         "400":
           description: Invalid Parameters
       x-openapi-router-controller: swagger_server.controllers.flights_controller
   /airlines/{airline-code}:
     get:
       tags:
-      - airlines
+        - airlines
       summary: Obtain airline data by airline code
       description: Obtain airline data given an airline code
       operationId: get_airline_by_code
       parameters:
-      - name: airline_code
-        in: path
-        description: Unique carrier code of the airline to return
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
+        - name: airline_code
+          in: path
+          description: Unique carrier code of the airline to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
       responses:
         "200":
           description: Successful Operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Airline'
+                $ref: "#/components/schemas/Airline"
         "400":
           description: Invalid Airline Code
         "404":
@@ -219,98 +221,99 @@ paths:
   /airlines/rank:
     get:
       tags:
-      - airlines
+        - airlines
       summary: Obtain airline ranks
-      description: "Obtain airline ranks, given weights and specifications for calculating\
+      description:
+        "Obtain airline ranks, given weights and specifications for calculating\
         \ it"
       operationId: get_airline_ranks
       parameters:
-      - name: limit
-        in: query
-        description: Limit the number of results
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: cancellation_weight
-        in: query
-        description: Weight of cancellations in calculating the airline rank
-        required: false
-        style: form
-        explode: true
-        schema:
-          maximum: 100
-          minimum: 0
-          type: integer
-          format: int32
-      - name: diversion_weight
-        in: query
-        description: Weight of diversions in calculating the airline rank
-        required: false
-        style: form
-        explode: true
-        schema:
-          maximum: 100
-          minimum: 0
-          type: integer
-          format: int32
-      - name: delay_weight
-        in: query
-        description: Weight of delays in calculating the airline rank
-        required: false
-        style: form
-        explode: true
-        schema:
-          maximum: 100
-          minimum: 0
-          type: integer
-          format: int32
-      - name: airline_code
-        in: query
-        description: Rank the given airline
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: origin_airport_id
-        in: query
-        description: Rank airlines using flight data from this origin airport
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: dest_airport_id
-        in: query
-        description: Rank airlines using flight data from this destination airport
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-      - name: start_date
-        in: query
-        description: Rank airlines using flight data after the given date
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: date
-      - name: end_date
-        in: query
-        description: Rank airlines using flight data before the given date
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: date
+        - name: limit
+          in: query
+          description: Limit the number of results
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: cancellation_weight
+          in: query
+          description: Weight of cancellations in calculating the airline rank
+          required: false
+          style: form
+          explode: true
+          schema:
+            maximum: 100
+            minimum: 0
+            type: integer
+            format: int32
+        - name: diversion_weight
+          in: query
+          description: Weight of diversions in calculating the airline rank
+          required: false
+          style: form
+          explode: true
+          schema:
+            maximum: 100
+            minimum: 0
+            type: integer
+            format: int32
+        - name: delay_weight
+          in: query
+          description: Weight of delays in calculating the airline rank
+          required: false
+          style: form
+          explode: true
+          schema:
+            maximum: 100
+            minimum: 0
+            type: integer
+            format: int32
+        - name: airline_code
+          in: query
+          description: Rank the given airline
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: origin_airport_id
+          in: query
+          description: Rank airlines using flight data from this origin airport
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: dest_airport_id
+          in: query
+          description: Rank airlines using flight data from this destination airport
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: start_date
+          in: query
+          description: Rank airlines using flight data after the given date
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: date
+        - name: end_date
+          in: query
+          description: Rank airlines using flight data before the given date
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: date
       responses:
         "200":
           description: Successful Operation
@@ -319,13 +322,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AirlineRank'
+                  $ref: "#/components/schemas/AirlineRank"
                 x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.airlines_controller
   /admin/flights:
     post:
       tags:
-      - admin
+        - admin
       summary: Add a new flight
       description: The admin can add a new flight and its information
       operationId: post_flight
@@ -334,7 +337,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Flight'
+              $ref: "#/components/schemas/Flight"
         required: true
       responses:
         "200":
@@ -344,7 +347,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Flight'
+                  $ref: "#/components/schemas/Flight"
                 x-content-type: application/json
         "405":
           description: Invalid input
@@ -352,27 +355,28 @@ paths:
   /admin/flights/{flight-number}:
     put:
       tags:
-      - admin
+        - admin
       summary: Update an existing flight
-      description: The admin can update an existing flight's information by its flight
+      description:
+        The admin can update an existing flight's information by its flight
         number
       operationId: put_flight
       parameters:
-      - name: flight_number
-        in: path
-        description: Number of the flight to update
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int32
+        - name: flight_number
+          in: path
+          description: Number of the flight to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int32
       requestBody:
         description: Update an existing flight
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Flight'
+              $ref: "#/components/schemas/Flight"
         required: true
       responses:
         "200":
@@ -382,7 +386,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Flight'
+                  $ref: "#/components/schemas/Flight"
                 x-content-type: application/json
         "404":
           description: Flight not Found
@@ -391,20 +395,20 @@ paths:
       x-openapi-router-controller: swagger_server.controllers.admin_controller
     delete:
       tags:
-      - admin
+        - admin
       summary: Delete an existing flight
       description: The admin can delete an existing flight by its flight number
       operationId: delete_flight
       parameters:
-      - name: flight_number
-        in: path
-        description: Number of the flight to delete
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int32
+        - name: flight_number
+          in: query
+          description: Number of the flight to delete
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int32
       responses:
         "204":
           description: Successful Deletion
@@ -436,9 +440,9 @@ components:
         airlineCode:
           type: string
         departure:
-          $ref: '#/components/schemas/FlightLandOrDep'
+          $ref: "#/components/schemas/FlightLandOrDep"
         arrival:
-          $ref: '#/components/schemas/FlightLandOrDep'
+          $ref: "#/components/schemas/FlightLandOrDep"
       example:
         diverted: true
         flightDate: 2000-01-23
@@ -478,9 +482,9 @@ components:
           type: integer
           format: int32
         airline:
-          $ref: '#/components/schemas/Airline'
+          $ref: "#/components/schemas/Airline"
         statistics:
-          $ref: '#/components/schemas/FlightsStatistics'
+          $ref: "#/components/schemas/FlightsStatistics"
       example:
         rankScore: 8
         airline:
@@ -566,7 +570,7 @@ components:
       type: object
       properties:
         statistics:
-          $ref: '#/components/schemas/FlightsStatistics'
+          $ref: "#/components/schemas/FlightsStatistics"
       example:
         statistics:
           total_flights: 0
@@ -574,4 +578,3 @@ components:
           max_delay: 1
           cancellation_percentage: 59.621338
           diversion_percentage: 56.373768
-

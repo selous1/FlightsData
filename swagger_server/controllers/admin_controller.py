@@ -17,6 +17,13 @@ def delete_flight(flight_number):  # noqa: E501
 
     :rtype: None
     """
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    client = bigquery.Client()
+
+    query = f"DELETE FROM cnproject-381016.cn54392dataset.flight_table WHERE Flight_Number_Operating_Airline = {flight_number};"
+
+    results = client.query(query)
+
     return 'do some magic!'
 
 
@@ -44,7 +51,6 @@ def post_flight(body):  # noqa: E501
     client = bigquery.Client()
 
     flightDict = flatten_dict(body.to_dict())
-    print(flightDict)
     Columns = 'FlightDate,Flight_Number_Operating_Airline,AirTime,Cancelled,Diverted,Tail_Number,Airline,OriginAirportID,OriginAirportSeqID,DepTime,DepDelayMinutes,DestAirportID,DestAirportSeqID,ArrTime,ArrDelayMinutes'
     values = list(flightDict.values())
 

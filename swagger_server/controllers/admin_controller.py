@@ -3,7 +3,8 @@ import six
 
 from swagger_server.models.flight import Flight  # noqa: E501
 from swagger_server import util
-from google.cloud import storage
+from google.cloud import bigquery
+import os
 
 
 def delete_flight(flight_number):  # noqa: E501
@@ -31,6 +32,21 @@ def post_flight(body):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
+
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    client = bigquery.Client()
+
+    query = """
+        SELECT *
+        FROM `cnproject-381016.cn54392dataset.flight_table`
+    """
+
+    results = client.query(query)
+
+    # Prints all results of the query, will lead to a lot of jargon
+    for res in results:
+        print(res)
+
     return 'do some magic!'
 
 

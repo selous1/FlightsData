@@ -40,20 +40,18 @@ def post_flight(body):  # noqa: E501
                  } if isinstance(dd, dict) else { prefix : dd }
 
 
-    #os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
-    #client = bigquery.Client()
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    client = bigquery.Client()
 
     flightDict = flatten_dict(body.to_dict())
     print(flightDict)
+    Columns = 'FlightDate,Flight_Number_Operating_Airline,AirTime,Cancelled,Diverted,Tail_Number,Airline,OriginAirportID,OriginAirportSeqID,DepTime,DepDelayMinutes,DestAirportID,DestAirportSeqID,ArrTime,ArrDelayMinutes'
+    values = list(flightDict.values())
 
+    Values = f"CAST('{values[0]}' AS Date),{values[1]},{values[2]},{values[3]},{values[4]},'{values[5]}','{values[6]}',{values[7]},{values[8]},{values[9]},{values[10]},{values[11]},{values[12]},{values[13]},{values[14]}"
+    query = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('cnproject-381016.cn54392dataset.flight_table', Columns, Values)
 
-    #['FlightDate','Airline','ArrTime','cancelled','diverted','tail_number','airline_code','departure_airport_id','departure_scheduled','departure_actual', 'departure_delay','arrival_airport_id','arrival_scheduled', 'arrival_actual', 'arrival_delay']
-
-    #query = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('cnproject-381016.cn54392dataset.flight_table', columns, values)
-
-    #results = client.query(query)
-
-    #print(results)
+    results = client.query(query)
 
     return 'do some magic!'
 

@@ -1,5 +1,12 @@
 # proj-cn-16
 
+# Cloning this repository
+
+To clone this project you can run:
+```
+https://github.com/selous1/proj-cn-16.git --branch 0.0.3
+```
+
 ## Requirements
 
 *TO DO SH FILE*

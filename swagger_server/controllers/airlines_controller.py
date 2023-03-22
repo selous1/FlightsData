@@ -5,7 +5,9 @@ from swagger_server.models.airline import Airline  # noqa: E501
 from swagger_server.models.airline_rank import AirlineRank  # noqa: E501
 from swagger_server import util
 from google.cloud import bigquery
-import os
+from collections import Counter
+from decimal import Decimal
+import os, json
 
 
 def get_airline_by_code(airline_code):  # noqa: E501
@@ -53,19 +55,47 @@ def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=Non
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
     client = bigquery.Client()
 
-    table_name = "cnproject-381016.cn54392dataset.flight_table";
+    table_name = "cnproject-381016.cn54392dataset.flight_table"
 
-    query = f"SELECT * FROM {table_name}"
+    # Airlines to list of dictionaries
+    # airline, num_flights, num_cancelled, num_diverted, ratio_cancelled, ratio_diverted
+    query_airlines = f"""SELECT Airline as airline,
+                         COUNT(Airline) as num_flights, 
+                         COUNT(CASE WHEN Cancelled THEN 1 END) as num_cancelled, 
+                         COUNT(CASE WHEN Diverted THEN 1 END) as num_diverted,
+                         CAST(COUNT(CASE WHEN Cancelled THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_cancelled,
+                         CAST(COUNT(CASE WHEN Diverted THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_diverted,
+       
+                         FROM {table_name} 
+                         GROUP BY Airline"""
 
-    query_job = client.query(query)
-
-    for row in query_job:
-        print(row)
-
-    print("oi")
+    query_job = client.query(query_airlines)
+    airlines_dicts = [dict(row) for row in query_job]
 
     # rank
 
-    # return
-    
-    return 'do some magic!'
+    cancellation_weight = cancellation_weight / 100
+    diversion_weight = diversion_weight / 100
+
+    for airline in airlines_dicts:
+        ratio_cancelled = airline["ratio_cancelled"]
+        ratio_diverted = airline["ratio_diverted"]
+
+        airline["ranking_index"] = (1-ratio_cancelled) * Decimal(cancellation_weight) + (1-ratio_diverted) * Decimal(diversion_weight)
+
+    sorted_airlines = __sort_by__(airlines_dicts, "ranking_index", True, limit)
+
+    """ for airline in new_list:
+        print(str(airline["airline"]) + " " + str(airline["ratio_cancelled"]) 
+              + " " + str(airline["ratio_diverted"]) + " " + str(airline["ranking_index"])) """
+
+    return sorted_airlines
+
+def __find_by__(dict_list, key, value):
+    return next(item for item in dict_list if item[key] == value)
+
+def __sort_by__(dict_list, key, in_reverse, limit=None):
+    list = sorted(dict_list, key=lambda d: d[key], reverse=in_reverse)
+    if limit != None: 
+        list = list[0:limit]
+    return list

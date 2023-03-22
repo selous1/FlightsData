@@ -4,7 +4,7 @@
 
 To clone this project you can run:
 ```
-https://github.com/selous1/proj-cn-16.git --branch 0.0.3
+git clone git@github.com:selous1/proj-cn-16.git
 ```
 
 ## Requirements

@@ -6,6 +6,9 @@
 dataset/*.csv
 dataset/*.parquet
 
+# Secrets
+.secrets/*
+
 # ------------------ Generated ------------------
 
 # TERRAFORM:

@@ -102,8 +102,11 @@ def __find_by__(dict_list, key, value):
 def __sort_by__(dict_list, key, in_reverse, limit=None):
     list = sorted(dict_list, key=lambda d: d[key], reverse=in_reverse)
     if limit != None: 
-        list = list[0:limit]
+        return __apply_limit__(list, limit)
     return list
+
+def __apply_limit__(dict_list, limit):
+    return dict_list[0:limit]
 
 def __get_ranking__(dict_list, airline_code):
     return next((index+1 for (index, d) in enumerate(dict_list) if d["airline_code"] == airline_code), "No airline matching that code")

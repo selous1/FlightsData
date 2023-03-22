@@ -22,7 +22,7 @@ def get_airline_by_code(airline_code):  # noqa: E501
     """
     return 'do some magic!'
 
-
+# TODO All parameters below diversion weight need to be clarified
 def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=None, delay_weight=None, 
                       airline_code=None, origin_airport_id=None, dest_airport_id=None, start_date=None, end_date=None):  # noqa: E501
     """Obtain airline ranks

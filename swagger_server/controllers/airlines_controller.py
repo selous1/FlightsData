@@ -22,8 +22,8 @@ def get_airline_by_code(airline_code):  # noqa: E501
     """
     return 'do some magic!'
 
-# TODO All parameters below diversion weight need to be clarified
-def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=None, delay_weight=None, 
+# TODO: All parameters below diversion weight need to be clarified
+def get_airline_ranks(limit=None, cancellation_weight=0, diversion_weight=0, delay_weight=0, 
                       airline_code=None, origin_airport_id=None, dest_airport_id=None, start_date=None, end_date=None):  # noqa: E501
     """Obtain airline ranks
 
@@ -60,6 +60,7 @@ def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=Non
     # Airlines to list of dictionaries
     # airline, num_flights, num_cancelled, num_diverted, ratio_cancelled, ratio_diverted
     query_airlines = f"""SELECT Airline as airline,
+                         Operating_Airline as airline_code,
                          COUNT(Airline) as num_flights, 
                          COUNT(CASE WHEN Cancelled THEN 1 END) as num_cancelled, 
                          COUNT(CASE WHEN Diverted THEN 1 END) as num_diverted,
@@ -67,7 +68,7 @@ def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=Non
                          CAST(COUNT(CASE WHEN Diverted THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_diverted,
        
                          FROM {table_name} 
-                         GROUP BY Airline"""
+                         GROUP BY Airline, Operating_Airline"""
 
     query_job = client.query(query_airlines)
     airlines_dicts = [dict(row) for row in query_job]
@@ -85,6 +86,10 @@ def get_airline_ranks(limit=None, cancellation_weight=None, diversion_weight=Non
 
     sorted_airlines = __sort_by__(airlines_dicts, "ranking_index", True, limit)
 
+    if airline_code != None:
+        return __get_ranking__(sorted_airlines, airline_code)
+
+
     """ for airline in new_list:
         print(str(airline["airline"]) + " " + str(airline["ratio_cancelled"]) 
               + " " + str(airline["ratio_diverted"]) + " " + str(airline["ranking_index"])) """
@@ -99,3 +104,6 @@ def __sort_by__(dict_list, key, in_reverse, limit=None):
     if limit != None: 
         list = list[0:limit]
     return list
+
+def __get_ranking__(dict_list, airline_code):
+    return next((index+1 for (index, d) in enumerate(dict_list) if d["airline_code"] == airline_code), "No airline matching that code")

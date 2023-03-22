@@ -5,6 +5,7 @@ from swagger_server.models.flight import Flight  # noqa: E501
 from swagger_server import util
 from google.cloud import bigquery
 import os
+import json
 
 
 def delete_flight(flight_number):  # noqa: E501
@@ -24,7 +25,7 @@ def delete_flight(flight_number):  # noqa: E501
 
     results = client.query(query)
 
-    return 'do some magic!'
+    return 'Deleted'
 
 
 def post_flight(body):  # noqa: E501
@@ -40,12 +41,6 @@ def post_flight(body):  # noqa: E501
     if connexion.request.is_json:
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
 
-    def flatten_dict(dd, separator='_', prefix=''):
-        return { prefix + separator + k if prefix else k : v
-                 for kk, vv in dd.items()
-                 for k, v in flatten_dict(vv, separator, kk).items()
-                 } if isinstance(dd, dict) else { prefix : dd }
-
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
     client = bigquery.Client()
@@ -59,7 +54,7 @@ def post_flight(body):  # noqa: E501
 
     results = client.query(query)
 
-    return 'do some magic!'
+    return json.dumps(flightDict, sort_keys=True, default=str)
 
 
 def put_flight(body, flight_number):  # noqa: E501
@@ -76,14 +71,6 @@ def put_flight(body, flight_number):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
-
-
-
-    def flatten_dict(dd, separator='_', prefix=''):
-        return { prefix + separator + k if prefix else k : v
-                 for kk, vv in dd.items()
-                 for k, v in flatten_dict(vv, separator, kk).items()
-                 } if isinstance(dd, dict) else { prefix : dd }
     
     def represents_int(s):
         try: 
@@ -115,4 +102,11 @@ def put_flight(body, flight_number):  # noqa: E501
 
     results = client.query(query)
     
-    return 'do some magic!'
+    return json.dumps(flightDict, sort_keys=True, default=str)
+
+
+def flatten_dict(dd, separator='_', prefix=''):
+    return { prefix + separator + k if prefix else k : v
+             for kk, vv in dd.items()
+             for k, v in flatten_dict(vv, separator, kk).items()
+             } if isinstance(dd, dict) else { prefix : dd }

@@ -3,7 +3,7 @@
 ## Requirements
 
 *TO DO SH FILE*
-(idea: create an ansible role that install all requirements leveraging its idempotence,
+(idea: create an ansible role that install all requirements,
 with this the sh script would only be responsible for installing ansible and then running the playbook)
 
 1. Local Kubernetes env (kind or minikube?) 
@@ -30,8 +30,6 @@ This Local Deployment is powered by (#TODO find the best local k8s engine) that 
 [//]: # (Internal note: I(j) thought that minikube was only vm based, so it was slower than kind, but the professor corrected me and explained that it is no longer the case. For that reason my vote goes to minikube because that is what is going to be used in the TP classes)
 
 ### Local Deploy
-
-(#TODO test todos)
 
 (#TODO save here the commands for local deployment)
 

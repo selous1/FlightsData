@@ -14,6 +14,7 @@ dependencies:
   - swagger-ui-bundle >= 0.0.2
   - google-cloud-bigquery
   - scikit-learn
+  - py-xgboost-cpu
   - attrs
   - flask
   - ipykernel

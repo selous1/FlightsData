@@ -9,6 +9,10 @@ dataset/*.parquet
 # Secrets
 .secrets/*
 
+# Scripts
+# ignore mambaforge script (its real big)
+.config/scripts/mambaforge-install-script.sh
+
 # ------------------ Generated ------------------
 
 # TERRAFORM:

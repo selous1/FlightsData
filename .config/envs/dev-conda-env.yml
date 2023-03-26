@@ -4,32 +4,38 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
+  - autopep8
+  # data science/viz
   - pandas
   - numpy
   - matplotlib
-  - autopep8
-  - connexion>=2.6.0
-  - python-dateutil
-  - setuptools >= 21.0.0
-  - swagger-ui-bundle >= 0.0.2
-  - google-cloud-bigquery
-  - scikit-learn
-  - py-xgboost-cpu
-  - graphviz
-  - python-graphviz
-  - attrs
-  - flask
   - ipykernel
   - ipython
   - ipywidgets
-  - mamba
-  - markdown
-  - openssl
-  - parquet-cpp
+  - graphviz
+  - python-graphviz
   - plotly
-  - protobuf
-  - scikit-learn
   - seaborn
+  - markdown
+  - parquet-cpp
+  # ml
+  - scikit-learn
+  - py-xgboost-cpu
+  # general dev
+  - flask
+  - attrs
+  - protobuf
+  - openssl
   - yaml
+  - python-dateutil
+  # swagger
+  - connexion>=2.6.0
+  - setuptools >= 21.0.0
+  - swagger-ui-bundle >= 0.0.2
+  # cloud
+  - google-cloud-bigquery
   - yaml-cpp
+  # config management
+  - mamba
+  - ansible
 prefix: /home/jferreira/mambaforge

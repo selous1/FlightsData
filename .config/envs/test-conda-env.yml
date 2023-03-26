@@ -1,15 +1,9 @@
 # This is the production python requirement's
-name: cen16
+name: cen16-test
 channels:
   - conda-forge
 dependencies:
   - python=3.10
-  - attrs
   - autopep8
-  - connexion>=2.6.0
-  - python-dateutil
-  - setuptools >= 21.0.0
-  - swagger-ui-bundle >= 0.0.2
-  - google-cloud-bigquery
   - pandas
 prefix: /home/jferreira/mambaforge

@@ -40,4 +40,8 @@ mamba env create -f .config/envs/dev-conda-env.yml
 bash -c "$env_path/condabin/mamba init"
 bash -c "$env_path/condabin/conda config --set auto_activate_base false"
 
+# ! TODO: get the ansible playbook running
+mamba activate cen16-dev
+# ansible-galaxy install -r .config/envs/ansible-requirements.yml 
+
 exec bash

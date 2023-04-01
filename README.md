@@ -7,23 +7,24 @@ To clone this project you can run:
 git clone git@github.com:selous1/proj-cn-16.git --branch v0.0.3
 ```
 
-## Requirements
+## Project Setup:
 
-*TO DO SH FILE*
-(idea: create an ansible role that install all requirements,
-with this the sh script would only be responsible for installing ansible and then running the playbook)
+To install both development and deployment requirements for this project a script has been included:
 
-1. Local Kubernetes env (kind or minikube?) 
-2. Ansible
-3. Terraform
-4. 
-
-We provide a shell script and an ansible playbook to install all of these requirements, to run it you just need to run:
+To install the dependencies run these commands from the root of the project:
 ```sh
-./install-requirements.sh
+chmod +x install-dependencies.sh
+./install-dependencies
 ```
 
-## Project Setup with VSCode
+This script checks to see if the command `mamba` is available in your `$PATH`, if it's not then [mambaforge](https://github.com/conda-forge/miniforge#mambaforge) (the recommended distribution of [mamba](https://github.com/mamba-org/mamba)) will be installed and the development environment will be created automatically.
+Then the job of actually installing the other software safely is in the hands of [ansible](https://www.ansible.com/) that is installed in the dev mamba env.
+Ansible then installs:
+1. [Terraform](https://www.terraform.io/)
+2. [Minikube](https://github.com/kubernetes/minikube)
+3. 
+
+### Project Setup with VSCode
 
 This project already contains a .vscode folder containing the recommended extensions and their configurations and so this is the preferred editor to view/use and run this project.
 

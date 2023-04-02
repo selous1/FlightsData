@@ -41,7 +41,14 @@ bash -c "$env_path/condabin/mamba init"
 bash -c "$env_path/condabin/conda config --set auto_activate_base false"
 
 # ! TODO: get the ansible playbook running
+
+# ? activate mamba env in this bash shell
 mamba activate cen16-dev
-# ansible-galaxy install -r .config/envs/ansible-requirements.yml 
+
+# * After getting the mamba env activated:
+ansible-galaxy install -r .config/envs/ansible-requirements.yml # this command is idempotent
+
+echo -e "${BLUE}The ansible playbook will ask for you password. Please input it when asked in BECOME password${NC}"
+ansible-playbook -K .config/playbooks/depencies-playbook.yaml
 
 exec bash

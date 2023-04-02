@@ -1,0 +1,15 @@
+---
+- name: localhost test
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: print hostname
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}"
+
+    - name: get the username running the deploy
+      become: false
+      local_action: command whoami
+      register: username_on_the_host
+    - debug:
+        var: username_on_the_host.stdout

@@ -22,7 +22,8 @@ Then the job of actually installing the other software safely is in the hands of
 Ansible then installs:
 1. [Terraform](https://www.terraform.io/)
 2. [Minikube](https://github.com/kubernetes/minikube)
-3. 
+3. [Kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/)
+4. [Rustup](https://rustup.rs/)
 
 ### Project Setup with VSCode
 

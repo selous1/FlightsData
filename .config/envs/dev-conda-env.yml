@@ -38,4 +38,5 @@ dependencies:
   # config management
   - mamba
   - ansible
+  - jinja2 >= 2.11.2
 prefix: /home/jferreira/mambaforge

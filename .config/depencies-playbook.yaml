@@ -1,8 +1,0 @@
----
-- name: Install CEN dependencies
-  hosts: localhost
-  connection: local
-  become: true
-
-  roles:
-    - role: diodonfrost.terraform

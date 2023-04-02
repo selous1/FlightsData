@@ -7,7 +7,10 @@
   pre_tasks:
     - name: Install acl
       package:
-        name: acl
+        name:
+          - acl
+          - curl
+          - unzip
         state: latest
 
   roles:

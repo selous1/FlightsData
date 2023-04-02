@@ -2,4 +2,3 @@
 - src: diodonfrost.terraform
 - src: gantsign.minikube
 - src: robertdebock.kubectl
-- src: paperbenni.rustup

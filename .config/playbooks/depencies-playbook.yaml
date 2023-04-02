@@ -9,15 +9,8 @@
       package:
         name: acl
         state: latest
-    - name: get the username running the deploy
-      become: false
-      local_action: command whoami
-      register: username_on_the_host
 
   roles:
     - diodonfrost.terraform
     - robertdebock.kubectl
     - gantsign.minikube
-    - role: paperbenni.rustup
-      vars:
-        rustup_user: "{{ username_on_the_host.stdout }}"

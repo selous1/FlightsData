@@ -7,6 +7,11 @@ This means that regular ansible roles for system packages will not do the job.
 Fortunately there are some roles in galaxy that do this exact job. 
 
 
+## rust:
+
+I didn't find, any rustup roles that worked... I tried about 5 but they all hung up on some detail or another with no documentation,
+Fortunately, the rustup sh file is already idempotent, so lets just use sh for that...
+
 ### installing the required roles
 ansible-galaxy install -r requirements.yml
 

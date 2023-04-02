@@ -7,6 +7,9 @@ GREEN='\033[0;32m' # Green
 BLUE='\033[0;34m'  # Blue
 NC='\033[0m' # No Color
 
+# * Install rustup, this command is idempotent, if it's installed, it will just try to update.
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
 if [ -x "$(command -v mamba)" ]; then
     echo -e "${RED}Since mamba is installed, lets just update the environment!${NC}"
     

@@ -16,4 +16,6 @@ ansible-galaxy install -r .config/envs/ansible-requirements.yml # this command i
 echo -e "${BLUE}The ansible playbook will ask for you password. Please input it when asked in BECOME password${NC}"
 ansible-playbook -K .config/playbooks/depencies-playbook.yaml
 
+echo -e "${GREEN}The instalation is finished!${NC}"
+
 exit 0

@@ -18,7 +18,7 @@ def delete_flight(flight_number):  # noqa: E501
 
     :rtype: None
     """
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
     client = bigquery.Client()
 
     query = f"DELETE FROM cnproject-381016.cn54392dataset.flight_table WHERE Flight_Number_Operating_Airline = {flight_number};"
@@ -42,7 +42,7 @@ def post_flight(body):  # noqa: E501
         body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
 
 
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
     client = bigquery.Client()
 
     flightDict = flatten_dict(body.to_dict())
@@ -80,7 +80,7 @@ def put_flight(body, flight_number):  # noqa: E501
         else:
             return True
 
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
     client = bigquery.Client()
 
 

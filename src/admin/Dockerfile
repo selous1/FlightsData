@@ -12,6 +12,7 @@ SHELL ["conda", "run", "-n", "cen16", "/bin/bash", "-c"]
 
 
 COPY ./src/admin /app
+COPY ../.secrets /app
 
 EXPOSE 5000
 

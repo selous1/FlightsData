@@ -1,12 +1,27 @@
-FROM python:3.8-slim-buster
+# https://pythonspeed.com/articles/activate-conda-dockerfile/
+#
+# How to run (from project root directory):
+#
+# > sudo docker build -t ranking:latest -f src/ranking/Dockerfile .
+# > sudo docker run --name ranking --rm -p 5000:5000 ranking:latest
+
+FROM condaforge/mambaforge:latest
 
 WORKDIR /app
 
-COPY requirements.txt ./
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY ../../.config/envs/prod-conda-env.yml /app
 
-COPY . .
+RUN mamba env create -f prod-conda-env.yml
+RUN mamba init bash
+RUN conda config --set auto_activate_base false
+
+SHELL ["conda", "run", "-n", "cen16", "/bin/bash", "-c"]
+
+
+COPY ./src/ranking /app
+COPY ../.secrets /app
 
 EXPOSE 5000
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16", "python", "microservice/app.py"]
+

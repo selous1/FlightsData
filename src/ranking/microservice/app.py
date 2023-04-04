@@ -6,9 +6,8 @@ from json import loads, dumps
 from decimal import *
 
 # BigQuery client setup
-credentials = service_account.Credentials.from_service_account_file(".secrets/cnproject-381016-a92327017fa2.json")
+credentials = service_account.Credentials.from_service_account_file("cnproject-381016-a92327017fa2.json")
 client = bigquery.Client(credentials=credentials)
-table_name = "cnproject-381016.flights_data.dataset"
 
 app = Flask(__name__)
 
@@ -36,6 +35,8 @@ def get_airlines_rank():
 
     if not args:
         return "Where args", 404
+
+    table_name = "cnproject-381016.flights_data.dataset"
     
     # Start query
     query_elems = [f"""

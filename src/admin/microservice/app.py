@@ -3,6 +3,10 @@ from flask import Flask, request, jsonify
 from google.cloud import bigquery
 from flight import Flight  # noqa: E501
 
+# BigQuery client setup
+credentials = service_account.Credentials.from_service_account_file("cnproject-381016-a92327017fa2.json")
+client = bigquery.Client(credentials=credentials)
+
 app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
@@ -28,9 +32,6 @@ def post_flight():  # noqa: E501
     body = request.json
     #if connexion.request.is_json:
     #    body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
-
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
-    client = bigquery.Client()
 
     flightDict = flatten_dict(body)
     #Columns = 'FlightDate,Flight_Number_Operating_Airline,AirTime,Cancelled,Diverted,Tail_Number,Airline,OriginAirportID,OriginAirportSeqID,DepTime,DepDelayMinutes,DestAirportID,DestAirportSeqID,ArrTime,ArrDelayMinutes'
@@ -93,8 +94,6 @@ def delete_flight(flight_number):  # noqa: E501
 
     :rtype: None
     """
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
-    client = bigquery.Client()
 
     query = f"DELETE FROM cnproject-381016.cn54392dataset.flight_table WHERE Flight_Number_Operating_Airline = {flight_number};"
 
@@ -121,10 +120,6 @@ def put_flight(flight_number):  # noqa: E501
 
     #if connexion.request.is_json:
     #    body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
-
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
-    client = bigquery.Client()
-
 
     # Turn body to dict of values and list of columns
     flightDict = flatten_dict(body)

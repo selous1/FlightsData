@@ -221,3 +221,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# keys
+key.json

@@ -1,15 +1,18 @@
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from flask import Flask, request, abort
-from flask_restful import reqparse
 
 # BigQuery client setup
 credentials = service_account.Credentials.from_service_account_file("key.json")
 client = bigquery.Client(credentials=credentials)
 
+# Flask setup
 app = Flask(__name__)
 
-param_to_column = {
+
+# Flight Statistics
+
+flight_statistics_get_params = {
     "airline-code": ("Operating_Airline", "="), 
     "origin-airport-id": ("OriginAirportID", "="), 
     "dest-airport-id": ("DestAirportID", "="),
@@ -21,16 +24,17 @@ param_to_column = {
 def get_flight_statistics():
     args = request.args
     
-    if not args:
-        return "Where args", 404
+    # Args must have at least one VALID element
+    if not args or not any(key in args for key in flight_statistics_get_params.keys()):
+        abort(400, "Insert at least one valid query parameter")
 
     query_elems = ["SELECT * FROM cn54392dataset.flight_table"]
     where_and = "WHERE"
 
-    for param in param_to_column.keys():
+    for param in flight_statistics_get_params.keys():
         if param in args:
             param_val = args[param] if args[param].isnumeric() else f'"{args[param]}"'
-            column_val, arithmetic_val = param_to_column[param]
+            column_val, arithmetic_val = flight_statistics_get_params[param]
             query_elems.append(f"{where_and} {column_val} {arithmetic_val} {param_val}")
             where_and = "AND"
     
@@ -49,8 +53,6 @@ def get_flight_statistics():
     max_arr_delay = result["ArrDelayMinutes"].max()
     average_arr_delay = result["ArrDelayMinutes"].mean()
     
-    print(query)
-
     return {
         "total_flights": total_flights,
         "cancellation_percentage": cancellation_per,
@@ -61,6 +63,7 @@ def get_flight_statistics():
         "average_arr_delay": average_arr_delay
     }
 
+# Flight Getter
 
 flight_get_params = {
     "flight-number": ("Flight_Number_Operating_Airline", "="),
@@ -75,46 +78,47 @@ def get_flight():
     args = request.args
 
     # Check if all params are present in query
-    if all(key in args for key in flight_get_params.keys()):
+    if not all(key in args for key in flight_get_params.keys()):
+        abort(400, "Missing query parameters")
 
-        query_elems = ["SELECT * FROM cn54392dataset.flight_table"]
-        where_and = "WHERE"
+    query_elems = ["SELECT * FROM cn54392dataset.flight_table"]
+    where_and = "WHERE"
 
-        for param in flight_get_params.keys():
-            param_val = args[param] if args[param].isnumeric() else f'"{args[param]}"'
-            column_val, arithmetic_val = flight_get_params[param]
-            query_elems.append(f"{where_and} {column_val} {arithmetic_val} {param_val}")
-            where_and = "AND"
+    for param in flight_get_params.keys():
+        param_val = args[param] if args[param].isnumeric() else f'"{args[param]}"'
+        column_val, arithmetic_val = flight_get_params[param]
+        query_elems.append(f"{where_and} {column_val} {arithmetic_val} {param_val}")
+        where_and = "AND"
 
-        query = " ".join(query_elems)
+    query = " ".join(query_elems)
 
-        query_job = client.query(query)
+    query_job = client.query(query)
 
-        result = query_job.result().to_dataframe().iloc[0].to_dict()
+    result = query_job.result().to_dataframe().iloc[0].to_dict()
 
-        return {
-            "flightDate": result["FlightDate"],
-            "flightNumber": result["Flight_Number_Operating_Airline"],
-            "flightDuration": result["ActualElapsedTime"],
-            "cancelled": result["Cancelled"],
-            "diverted": result["Diverted"],
-            "tailNumber": result["Tail_Number"],
-            "airlineCode": result["Operating_Airline"],
-            "departure": {
-                "airportId": result["DestAirportID"],
-                "scheduled": result["CRSArrTime"],
-                "actual": result["ArrTime"],
-                "delay": result["ArrDelay"]
-            },
-            "arrival": {
-                "airportId": result["OriginAirportID"],
-                "scheduled": result["CRSDepTime"],
-                "actual": result["DepTime"],
-                "delay": result["DepDelay"]
-            },
-        }
+    return {
+        "flightDate": result["FlightDate"],
+        "flightNumber": result["Flight_Number_Operating_Airline"],
+        "flightDuration": result["ActualElapsedTime"],
+        "cancelled": result["Cancelled"],
+        "diverted": result["Diverted"],
+        "tailNumber": result["Tail_Number"],
+        "airlineCode": result["Operating_Airline"],
+        "departure": {
+            "airportId": result["DestAirportID"],
+            "scheduled": result["CRSArrTime"],
+            "actual": result["ArrTime"],
+            "delay": result["ArrDelay"]
+        },
+        "arrival": {
+            "airportId": result["OriginAirportID"],
+            "scheduled": result["CRSDepTime"],
+            "actual": result["DepTime"],
+            "delay": result["DepDelay"]
+        },
+    }
     
-    abort(400, "Missing query parameters")
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

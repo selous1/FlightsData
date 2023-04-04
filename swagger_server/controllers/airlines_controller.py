@@ -52,10 +52,10 @@ def get_airline_ranks(limit=None, cancellation_weight=0, diversion_weight=0, del
     """
 
     # get data from bigquery (bucket)
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "cnproject-381016-a92327017fa2.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ".secrets/cnproject-381016-a92327017fa2.json"
     client = bigquery.Client()
 
-    table_name = "cnproject-381016.cn54392dataset.flight_table"
+    table_name = "cnproject-381016.flights_data.dataset"
 
     # Airlines to list of dictionaries
     # airline, num_flights, num_cancelled, num_diverted, ratio_cancelled, ratio_diverted
@@ -66,7 +66,7 @@ def get_airline_ranks(limit=None, cancellation_weight=0, diversion_weight=0, del
                          COUNT(CASE WHEN Diverted THEN 1 END) as num_diverted,
                          CAST(COUNT(CASE WHEN Cancelled THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_cancelled,
                          CAST(COUNT(CASE WHEN Diverted THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_diverted,
-       
+
                          FROM {table_name} 
                          GROUP BY Airline, Operating_Airline"""
 
@@ -95,6 +95,18 @@ def get_airline_ranks(limit=None, cancellation_weight=0, diversion_weight=0, del
               + " " + str(airline["ratio_diverted"]) + " " + str(airline["ranking_index"])) """
 
     return sorted_airlines
+
+def verifyParameters(param, column_name, table_name, client):
+    query = f"SELECT COUNT(1) as occurrences FROM {table_name} WHERE {column_name}=\"{param}\""
+
+    query_job = client.query(query)
+
+    dic = [dict(row) for row in query_job]
+
+    if dic["occurrences"] < 1:
+       return
+
+    return
 
 def __find_by__(dict_list, key, value):
     return next(item for item in dict_list if item[key] == value)

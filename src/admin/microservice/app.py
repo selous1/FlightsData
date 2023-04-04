@@ -73,7 +73,6 @@ def post_flight():  # noqa: E501
     #Values = f"CAST('{values[0]}' AS Date),{values[1]},{values[2]},{values[3]},{values[4]},'{values[5]}','{values[6]}',{values[7]},{values[8]},{values[9]},{values[10]},{values[11]},{values[12]},{values[13]},{values[14]}"
     query = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('cnproject-381016.cn54392dataset.flight_table', ''.join(Columns)[:-1], ''.join(values)[:-1])
 
-    print(query)
     results = client.query(query)
 
     response = app.response_class(
@@ -157,7 +156,6 @@ def put_flight(flight_number):  # noqa: E501
     query = f"UPDATE cnproject-381016.cn54392dataset.flight_table SET {start[:-1]} WHERE Flight_Number_Operating_Airline = {flight_number}; "
 
     results = client.query(query)
-    print(query)
 
     response = app.response_class(
         response=json.dumps(flightDict, sort_keys=True, default=str),

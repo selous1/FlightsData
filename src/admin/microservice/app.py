@@ -5,6 +5,13 @@ from flight import Flight  # noqa: E501
 
 app = Flask(__name__)
 
+@app.route("/", methods=['GET'])
+def root():  # noqa: E501
+    response = app.response_class(
+        response="OK",
+        status=200,
+    )
+    return response
 
 @app.route("/admin/flights", methods=['POST'])
 def post_flight():  # noqa: E501

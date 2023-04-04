@@ -20,7 +20,7 @@ flight_statistics_get_params = {
     "end-date": ("FlightDate", "<="),
 }
 
-@app.route("/flights/statistics")
+@app.route("/flights/statistics", methods=["GET"])
 def get_flight_statistics():
     args = request.args
     
@@ -73,7 +73,7 @@ flight_get_params = {
     "airline-code": ("Operating_Airline", "="), 
 }
 
-@app.route("/flights")
+@app.route("/flights", methods=["GET"])
 def get_flight():
     args = request.args
 
@@ -118,7 +118,9 @@ def get_flight():
         },
     }
     
-    
+@app.route("/", methods=["GET"])
+def health_check():
+    return "OK"    
 
 if __name__ == "__main__":
     app.run(debug=True)

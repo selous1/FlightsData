@@ -72,21 +72,48 @@ paths:
                     $ref: '#/components/schemas/FlightsStatistics'
         '400':
           description: Invalid Parameters
-  /flights/{flight-number}:
+  /flights:
     get:
       tags:
         - flights
       summary: Obtain flight data by flight number
-      description: Obtain flight data given a flight number
+      description: Obtain the details of a flight, given the necessary details
       operationId: getFlightByNumber
       parameters:
-        - name: flight-number
-          in: path
-          description: Number of the flight to return
+        - name: airline-code
+          in: query
+          description: Airline code for the airline that performed the flight
+          required: true
+          schema:
+            type: string
+        - name: origin-airport-id
+          in: query
+          description: Origin airport id of flight
           required: true
           schema:
             type: integer
             format: int32
+        - name: dest-airport-id
+          in: query
+          description: Destination airport id of flight
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: flight-date
+          in: query
+          description: Flight date
+          required: true
+          schema:
+            type: integer
+            format: date
+        - name: flight-number
+          in: query
+          description: Flight number
+          required: true
+          schema:
+            type: integer
+            format: date
       responses:
         '200':
           description: Successful Operation

@@ -44,7 +44,21 @@ This Local Deployment is powered by (#TODO find the best local k8s engine) that 
 
 ### Cloud Deploy
 
-(#TODO save here the commands for cloud deployment)
+Create flight deployment and service that can be accessed from outside the cluster.
+```
+kubectl apply -f flight-dep.yaml
+```
+Create airline deployment and service that can be accessed from outside the cluster.
+```
+kubectl apply -f airline-dep.yaml
+```
+To test, run:
+```
+curl -4 CLUSTER-IP:3000/
+```
+You should receive an OK message
+
+Keys have not yet been added to a Secret Resource, and are located inside the container.
 
 ## Running the application
 

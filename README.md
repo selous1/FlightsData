@@ -6,6 +6,10 @@ To clone this project you can run:
 ```
 git clone git@github.com:selous1/proj-cn-16.git --branch v0.0.3
 ```
+For week 4 the correct command will be:
+```
+git clone git@github.com:selous1/proj-cn-16.git --branch v0.0.4
+```
 
 ## Project Setup:
 

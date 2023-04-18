@@ -19,6 +19,13 @@ spec:
           image: santig007/cnproject_54392:admin
           ports:
             - containerPort: 5000
+          volumeMounts:
+            - name: secret-volume
+              mountPath : .secret
+      volumes:
+        - name: secret-volume
+          secret: 
+            secretName: my-secret
 ---
 apiVersion: v1
 kind: Service

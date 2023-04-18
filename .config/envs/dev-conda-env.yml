@@ -35,6 +35,7 @@ dependencies:
   # cloud
   - google-cloud-bigquery
   - yaml-cpp
+  - prometheus_client
   # config management
   - mamba
   - ansible

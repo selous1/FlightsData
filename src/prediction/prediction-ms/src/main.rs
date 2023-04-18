@@ -21,7 +21,7 @@ async fn liveness() -> impl Responder {
     HttpResponse::Ok().body("Alive!")
 }
 
-#[get("/")]
+#[get("/")] 
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }

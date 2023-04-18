@@ -10,6 +10,14 @@ NC='\033[0m' # No Color
 # * Install rustup, this command is idempotent, if it's installed, it will just try to update.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
+if [ -f dataset/dataset.parquet ]; then
+    echo -e "${RED}Dataset already exists, skipping download.${NC}"
+else
+    echo -e "${BLUE}Downloading dataset...${NC}"
+    wget -O dataset/dataset.parquet 'https://ulisboa-my.sharepoint.com/:u:/g/personal/fc55312_alunos_fc_ul_pt/ET70WH8nOgRFoYGIPErr3TIBYGwFMwNguqUnUTRyizo3rw?e=9Kyvlt&download=1'
+    echo -e "${GREEN}Dataset downloaded.${NC}"
+fi
+
 if [ -x "$(command -v mamba)" ]; then
     echo -e "${RED}Since mamba is installed, lets just update the environment!${NC}"
     

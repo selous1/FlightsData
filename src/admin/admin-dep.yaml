@@ -5,7 +5,7 @@ metadata:
   labels:
     app: admin
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: admin
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: admin
-          image: santig007/cnproject_54392
+          image: santig007/cnproject_54392:admin
           ports:
             - containerPort: 5000
 ---

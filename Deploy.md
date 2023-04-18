@@ -42,3 +42,10 @@ For local testing
 ``` bash
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
 ```
+
+## Prometheus Server
+
+```bash
+kubectl create configmap prometheus-cm --from-file prometheus-cm.yaml
+kubectl apply -f prometheus.yaml
+```

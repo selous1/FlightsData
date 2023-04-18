@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from flight import Flight  # noqa: E501
+from prometheus_client import Counter
 
 # BigQuery client setup
 credentials = service_account.Credentials.from_service_account_file("cnproject-381016-3aa6da06c093.json")
@@ -13,6 +14,7 @@ client = bigquery.Client(credentials=credentials)
 
 app = Flask(__name__)
 
+c = Counter('POST_call', 'number of time POST was called')
 
 @app.route("/", methods=['GET'])
 def root():  # noqa: E501
@@ -34,7 +36,7 @@ def post_flight():  # noqa: E501
 
     :rtype: List[Flight]
     """
-
+    c.inc()
     body = request.json
     # if connexion.request.is_json:
     #    body = Flight.from_dict(connexion.request.get_json())  # noqa: E501
@@ -60,7 +62,6 @@ def post_flight():  # noqa: E501
         'arrival_scheduled': 'CRSElapsedTime',
         'flightNumber': 'Flight_Number_Operating_Airline'
     }
-
     # Create Set part of the query
     Columns = []
     values = []

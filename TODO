@@ -1,0 +1,48 @@
+
+Todo:
+  # This is what you are supposed to have done before moving on to deployment of you microservice
+  # 
+  MicroServices:
+    Airlines:
+      ✔ Development
+      ☐ Health Check (GET "/" -> 200 OK)
+      ☐ Logging:
+        ☐ Log to console
+        ☐ Make logs that are understandable by Prometheus
+    Flights:
+      ✔ Development
+      ☐ Health Check (GET "/" -> 200 OK)
+      ☐ Logging:
+        ☐ Log to console
+        ☐ Make logs that are understandable by Prometheus
+    Predictions:
+      ☐ Development
+      ✔ Health Check (GET "/" -> 200 OK)
+      ☐ Logging:
+        ☐ Log to console
+        ☐ Make logs that are understandable by Prometheus
+    Admin:
+      ✔ Development
+      ✔ Health Check (GET "/" -> 200 OK)
+      ☐ Logging:
+        ☐ Log to console
+        ☐ Make logs that are understandable by Prometheus
+    Ranking:
+      ✔ Development
+      ☐ Health Check (GET "/" -> 200 OK)
+      ☐ Logging:
+        ☐ Log to console
+        ☐ Make logs that are understandable by Prometheus
+  CI/CD:
+    ☐ Kubernetes:
+      ☐ Ingress:
+        ☐ Create ingress
+        ☐ Create ingress rules
+      ☐ Services:
+      ☐ Secrets (have kubernetes use secrets correctly):
+      ☐ Deploy to miniKube:
+      ☐ Deploy to GKE:
+    ☐ Terraform:
+      
+
+

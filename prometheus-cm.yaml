@@ -7,5 +7,5 @@ scrape_configs:
     - job_name: admin-s-n
       scrape_interval: 5s
       static_configs:
-        - targets: ['py-prom-s:5000']
+        - targets: ['admin-s-n:5000']
 

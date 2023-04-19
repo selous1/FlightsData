@@ -1,7 +1,7 @@
 import json
 import os
 import connexion
-import re
+import re , glob
 from flask import Flask, request, jsonify, Response
 from google.cloud import bigquery
 from google.oauth2 import service_account
@@ -10,7 +10,8 @@ from prometheus_client import Counter, generate_latest, CollectorRegistry, CONTE
 from prometheus_client.core import CollectorRegistry
 
 # BigQuery client setup
-credentials = service_account.Credentials.from_service_account_file("cnproject-381016-3aa6da06c093.json")
+secret = glob.glob('./*.json')[0]
+credentials = service_account.Credentials.from_service_account_file(secret)
 client = bigquery.Client(credentials=credentials)
 
 app = Flask(__name__)

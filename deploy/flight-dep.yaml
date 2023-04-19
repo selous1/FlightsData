@@ -15,10 +15,17 @@ spec:
         app: flight
     spec:
       containers:
-      - name: flight
-        image: therobertsan/flight-container
-        ports:
-        - containerPort: 5000
+        - name: flight
+          image: therobertsan/flight-container
+          ports:
+          - containerPort: 5000
+          volumeMounts:
+              - name: secret-volume
+                mountPath : .secret
+      volumes:
+        - name: secret-volume
+          secret: 
+            secretName: my-secret
 ---
 apiVersion: v1
 kind: Service
@@ -34,5 +41,5 @@ spec:
     - name: http
       protocol: TCP
       port: 5000
-      nodePort: 30001
+      nodePort: 30002
       targetPort: 5000

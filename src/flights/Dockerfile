@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-COPY key.json ./
+#COPY key.json ./
 COPY app.py ./
 
 EXPOSE 5000

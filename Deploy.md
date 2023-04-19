@@ -20,32 +20,34 @@ Reference
 
 https://www.youtube.com/watch?v=cQAEK9PBY8U
 
-## Admin
+## Deploy Ingress
 
 ```bash
-kubectl apply -f src/admin/admin-dep.yaml
-kubectl describe deploy admin-d
+kubectl apply -f .config/ingress/
 ```
 
-
-
-## Ingress
+## Deploy Logging
 
 ```bash
-kubectl apply -f ingress-nginx.yml
-kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=120
-kubectl apply -f ingress-resource.yml
+kubectl apply -f .config/logging/
 ```
 
-For local testing
-
-``` bash
-kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
-```
-
-## Prometheus Server
+## Deploy all microservices
 
 ```bash
-kubectl create configmap prometheus-cm --from-file prometheus-cm.yaml
-kubectl apply -f prometheus.yaml
+kubectl apply -f deploy/
+```
+
+# Remove Microservices
+
+## Remove all services
+
+```bash
+kubectl delete --all services
+```
+
+## Remove all deployments
+
+```bash
+kubectl delete --all deployment
 ```

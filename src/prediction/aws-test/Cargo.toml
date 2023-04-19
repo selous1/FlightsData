@@ -6,3 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+aws-config = "0.55.1"
+aws-sdk-lambda = "0.26.0"
+aws-sdk-s3 = "0.26.0"
+clap = { version = "4.2.4", features = ["derive"] }
+serde = { version = "1.0.160", features = ["derive"] }
+tokio = { version = "1.27.0", features = ["full"] }

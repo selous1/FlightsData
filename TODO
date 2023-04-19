@@ -9,30 +9,35 @@ Todo:
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
+      ☐ Containerize
     Flights:
       ✔ Development
       ☐ Health Check (GET "/" -> 200 OK)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
+      ☐ Containerize
     Predictions:
       ☐ Development
       ✔ Health Check (GET "/" -> 200 OK)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
+      ☐ Containerize
     Admin:
       ✔ Development
       ✔ Health Check (GET "/" -> 200 OK)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
+      ☐ Containerize
     Ranking:
       ✔ Development
       ☐ Health Check (GET "/" -> 200 OK)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
+      ☐ Containerize
   CI/CD:
     ☐ Kubernetes:
       ☐ Ingress:
@@ -43,6 +48,6 @@ Todo:
       ☐ Deploy to miniKube:
       ☐ Deploy to GKE:
     ☐ Terraform:
-      
 
-
+Recurring:
+  ☐ Reset database before submitting

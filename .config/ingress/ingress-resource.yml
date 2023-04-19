@@ -4,11 +4,6 @@ metadata:
   name: nginx-ingress
 spec:
   ingressClassName: nginx
-  defaultBackend:
-    service:
-      name: admin-s-n
-      port:
-        number: 5000
   rules:
     - http:
         paths:
@@ -17,5 +12,19 @@ spec:
             backend:
               service:
                 name: admin-s-n
+                port:
+                  number: 5000       
+          - path: /airlines
+            pathType: Prefix
+            backend:
+              service:
+                name: airline-s-n
+                port:
+                  number: 5000
+          - path: /flights
+            pathType: Prefix
+            backend:
+              service:
+                name: flight-s-n
                 port:
                   number: 5000

@@ -63,3 +63,7 @@ kubectl get all
 ```bash
 kubectl exec -it pod-name sh
 ```
+
+```bash
+kubectl logs pod-name
+```

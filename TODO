@@ -5,18 +5,18 @@ Todo:
   MicroServices:
     Airlines:
       ✔ Development
-      ☐ Health Check (GET "/" -> 200 OK)
+      ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
-      ☐ Containerize
+      ✔ Containerize @done(23-04-19 21:13)
     Flights:
       ✔ Development
-      ☐ Health Check (GET "/" -> 200 OK)
+      ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
-      ☐ Containerize
+      ✔ Containerize @done(23-04-19 21:13)
     Predictions:
       ☐ Development
       ✔ Health Check (GET "/" -> 200 OK)
@@ -30,14 +30,14 @@ Todo:
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
-      ☐ Containerize
+      ✔ Containerize @done(23-04-19 21:13)
     Ranking:
       ✔ Development
-      ☐ Health Check (GET "/" -> 200 OK)
+      ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
-      ☐ Containerize
+      ✔ Containerize @done(23-04-19 21:13)
   CI/CD:
     ☐ Kubernetes:
       ☐ Ingress:

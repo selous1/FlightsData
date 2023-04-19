@@ -9,6 +9,14 @@ client = bigquery.Client(credentials=credentials)
 # Flask setup
 app = Flask(__name__)
 
+@app.route("/", methods=['GET'])
+def root():
+    response = app.response_class(
+        response="OK",
+        status=200,
+    )
+    return response
+
 @app.route("/airlines/<airline_code>")
 def get_airline(airline_code, methods=["GET"]):
     query = f"""

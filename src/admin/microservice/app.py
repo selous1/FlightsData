@@ -2,18 +2,19 @@ import json
 import os
 import connexion
 import re
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from google.cloud import bigquery
 from google.oauth2 import service_account
-from flight import Flight  # noqa: E501
-from prometheus_client import Counter
+from prometheus_client import start_http_server, Counter
+from prometheus_client import Counter, generate_latest, CollectorRegistry, CONTENT_TYPE_LATEST
+from prometheus_client.core import CollectorRegistry
 
 # BigQuery client setup
 credentials = service_account.Credentials.from_service_account_file("cnproject-381016-3aa6da06c093.json")
 client = bigquery.Client(credentials=credentials)
 
 app = Flask(__name__)
-
+registry = CollectorRegistry()
 c = Counter('POST_call', 'number of time POST was called')
 
 @app.route("/", methods=['GET'])
@@ -24,6 +25,9 @@ def root():  # noqa: E501
     )
     return response
 
+@app.route("/metrics", methods=['GET'])
+def request_count():
+    return Response(generate_latest(registry))
 
 @app.route("/admin/flights", methods=['POST'])
 def post_flight():  # noqa: E501
@@ -193,3 +197,4 @@ def represents_int(s):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+    start_http_server(5000)

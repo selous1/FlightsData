@@ -49,5 +49,8 @@ Todo:
       ☐ Deploy to GKE:
     ☐ Terraform:
 
+  API:
+    ☐ Fix yml file (especially ranking - not using delay)
+
 Recurring:
   ☐ Reset database before submitting

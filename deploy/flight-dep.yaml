@@ -18,10 +18,10 @@ spec:
         - name: flight
           image: therobertsan/flight-container
           ports:
-          - containerPort: 5000
+            - containerPort: 5000
           volumeMounts:
-              - name: secret-volume
-                mountPath : .secret
+            - name: secret-volume
+              mountPath: .secret
       volumes:
         - name: secret-volume
           secret: 

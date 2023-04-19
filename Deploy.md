@@ -51,3 +51,15 @@ kubectl delete --all services
 ```bash
 kubectl delete --all deployment
 ```
+
+```bash
+kubectl delete all --all
+```
+
+```bash
+kubectl get all
+```
+
+```bash
+kubectl exec -it pod-name sh
+```

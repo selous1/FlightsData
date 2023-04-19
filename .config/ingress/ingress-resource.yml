@@ -14,18 +14,18 @@ spec:
                 name: admin-s-n
                 port:
                   number: 5000       
-          - path: /airlines/rank
-            pathType: Prefix
-            backend:
-              service:
-                name: rank-s-n
-                port:
-                  number: 5000
           - path: /airlines
             pathType: Prefix
             backend:
               service:
                 name: airline-s-n
+                port:
+                  number: 5000
+          - path: /airlines/rank
+            pathType: Prefix
+            backend:
+              service:
+                name: ranking-s-n
                 port:
                   number: 5000
           - path: /flights

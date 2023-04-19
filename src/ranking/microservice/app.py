@@ -1,4 +1,4 @@
-import json, os, connexion, re
+import json, os, connexion, re, glob
 from flask import Flask, request, jsonify
 from google.cloud import bigquery
 from google.oauth2 import service_account
@@ -6,7 +6,8 @@ from json import loads, dumps
 from decimal import *
 
 # BigQuery client setup
-credentials = service_account.Credentials.from_service_account_file("cnproject-381016-a92327017fa2.json")
+secret = glob.glob('./*.json')[0]
+credentials = service_account.Credentials.from_service_account_file(secret)
 client = bigquery.Client(credentials=credentials)
 
 app = Flask(__name__)

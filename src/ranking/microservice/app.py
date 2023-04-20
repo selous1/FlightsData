@@ -6,8 +6,9 @@ from json import loads, dumps
 from decimal import *
 
 # BigQuery client setup
-secret = glob.glob('./*.json')[0]
-credentials = service_account.Credentials.from_service_account_file(secret)
+json_string = os.environ.get('API_TOKEN')
+json_file = json.loads(json_string)
+credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
 
 app = Flask(__name__)

@@ -67,3 +67,5 @@ kubectl exec -it pod-name sh
 ```bash
 kubectl logs pod-name
 ```
+
+kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"

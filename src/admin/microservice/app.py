@@ -10,8 +10,9 @@ from prometheus_client import Counter, generate_latest, CollectorRegistry, CONTE
 from prometheus_client.core import CollectorRegistry
 
 # BigQuery client setup
-secret = glob.glob('./*.json')[0]
-credentials = service_account.Credentials.from_service_account_file(secret)
+json_string = os.environ.get('API_TOKEN')
+json_file = json.loads(json_string)
+credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
 
 app = Flask(__name__)

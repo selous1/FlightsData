@@ -18,12 +18,12 @@ Todo:
         ☐ Make logs that are understandable by Prometheus
       ✔ Containerize @done(23-04-19 21:13)
     Predictions:
-      ☐ Development
+      ✔ Development @done(23-04-20 01:36)
       ✔ Health Check (GET "/" -> 200 OK)
       ☐ Logging:
         ☐ Log to console
         ☐ Make logs that are understandable by Prometheus
-      ☐ Containerize
+      ✔ Containerize @done(23-04-20 01:36)
     Admin:
       ✔ Development
       ✔ Health Check (GET "/" -> 200 OK)

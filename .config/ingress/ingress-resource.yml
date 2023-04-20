@@ -13,7 +13,7 @@ spec:
               service:
                 name: admin-s-n
                 port:
-                  number: 5000       
+                  number: 5000
           - path: /airlines
             pathType: Prefix
             backend:
@@ -35,3 +35,10 @@ spec:
                 name: flight-s-n
                 port:
                   number: 5000
+          - path: /flights/predict
+            pathType: Prefix
+            backend:
+              service:
+                name: predict-s-n
+                port:
+                  number: 8080

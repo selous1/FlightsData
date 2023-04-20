@@ -40,17 +40,17 @@ Todo:
       ✔ Containerize @done(23-04-19 21:13)
   CI/CD:
     ☐ Kubernetes:
-      ☐ Ingress:
-        ☐ Create ingress
-        ☐ Create ingress rules
-      ☐ Services:
-      ☐ Secrets (have kubernetes use secrets correctly):
-      ☐ Deploy to miniKube:
+      ✔ Ingress: @done(23-04-20 01:39)
+        ✔ Create ingress @done(23-04-20 01:39)
+        ✔ Create ingress rules @done(23-04-20 01:39)
+      ✔ Services: @done(23-04-20 01:39)
+      ✔ Secrets (have kubernetes use secrets correctly): @done(23-04-20 01:39)
+      ✔ Deploy to miniKube: @done(23-04-20 01:39)
       ☐ Deploy to GKE:
-    ☐ Terraform:
 
   API:
     ☐ Fix yml file (especially ranking - not using delay)
+    ☐ Fix yml responses to match ours
 
 Recurring:
   ☐ Reset database before submitting

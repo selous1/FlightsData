@@ -24,8 +24,8 @@ def root():
 where_params = {
     "origin_airport_id": ("OriginAirportID", "="), 
     "dest_airport_id": ("DestAirportID", "="),
-    "start_date": ("FlightDate", ">="),
-    "end_date": ("FlightDate", "<="),
+    "start-date": ("FlightDate", ">="),
+    "end-date": ("FlightDate", "<="),
 }
 
 

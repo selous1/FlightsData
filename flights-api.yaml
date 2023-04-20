@@ -2,10 +2,10 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: USA Flights API
-  description: This API allows the user to obtain information and statistics flights that occured in 2020, 2021 and 2022. It also allows users to forecast future flights with this data. Plus, admins can add new flights, update flight information and delete existing ones.
+  description: This API allows the user to obtain information and statistics flights that occured in 2020, 2021 and 2022. It also allows users to predict future flights with this data. Plus, admins can add new flights, update flight information and delete existing ones.
 tags:
   - name: flights
-    description: Obtain information about flights and get flight forecasts
+    description: Obtain information about flights and get flight predictions
   - name: airlines
     description: Obtain information about airlines and their reliability
   - name: admin
@@ -126,13 +126,13 @@ paths:
         '404':
           description: Flight Not Found
       
-  /flights/forecast:
+  /flights/predict:
     get:
       tags:
         - flights
-      summary: Obtain a forecast for a future flight
+      summary: Obtain a prediction for a future flight
       description: Obtain predictions for a future flight, given a date and other details
-      operationId: getFlightForecast
+      operationId: getFlightPrediction
       parameters:
         - name: flight-date
           in: query
@@ -236,15 +236,6 @@ paths:
         - name: diversion-weight
           in: query
           description: Weight of diversions in calculating the airline rank
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 100
-        - name: delay-weight
-          in: query
-          description: Weight of delays in calculating the airline rank
           required: false
           schema:
             type: integer

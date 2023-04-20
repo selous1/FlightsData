@@ -16,16 +16,15 @@ spec:
     spec:
       containers:
         - name: flight
-          image: therobertsan/flight-container
+          image: therobertsan/flight-container:v2
           ports:
             - containerPort: 5000
-          volumeMounts:
-            - name: secret-volume
-              mountPath: .secret
-      volumes:
-        - name: secret-volume
-          secret: 
-            secretName: my-secret
+          env:
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: API_TOKEN 
 ---
 apiVersion: v1
 kind: Service

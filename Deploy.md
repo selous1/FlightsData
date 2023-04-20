@@ -71,3 +71,4 @@ kubectl logs pod-name
 kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
 
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 9000:80
+kubectl delete secret my-secret

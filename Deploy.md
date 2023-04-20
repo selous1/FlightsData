@@ -10,11 +10,16 @@ Starting minikube
 minikube start
 ```
 
-Adding secret to environment variables
+Adding secret to environment variables, by putting the cat of the JSON key in the variable
 
 ```bash
 kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
 ```
+
+Remove secret from kubectl
+
+kubectl delete secret my-secret
+
 
 Reference
 
@@ -52,23 +57,34 @@ kubectl delete --all services
 kubectl delete --all deployment
 ```
 
+## Alternative to remove everything
+
 ```bash
 kubectl delete all --all
 ```
+
+# Aditionals
+
+Get everything in kubectl
 
 ```bash
 kubectl get all
 ```
 
+Run a command in a specific pod (sh if we want to access the pod shell)
+
 ```bash
-kubectl exec -it pod-name sh
+kubectl exec -it "pod-name" "command"
 ```
+
+Check the std out of the pod when it crashed 
 
 ```bash
 kubectl logs pod-name
 ```
 
-kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
+Port forward to send message to nginx from localhost
 
+```bash
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 9000:80
-kubectl delete secret my-secret
+```

@@ -11,4 +11,5 @@
         "openapi"
     ],
     "markdown-pdf.mermaidServer": "https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js",
+    "todo.timekeeping.finished.time": false,
 }

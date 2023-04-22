@@ -1,56 +1,89 @@
-
 Todo:
-  # This is what you are supposed to have done before moving on to deployment of you microservice
-  # 
-  MicroServices:
-    Airlines:
-      ✔ Development
-      ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
-      ☐ Logging:
-        ☐ Log to console
-        ☐ Make logs that are understandable by Prometheus
-      ✔ Containerize @done(23-04-19 21:13)
-    Flights:
-      ✔ Development
-      ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
-      ☐ Logging:
-        ☐ Log to console
-        ☐ Make logs that are understandable by Prometheus
-      ✔ Containerize @done(23-04-19 21:13)
-    Predictions:
-      ✔ Development @done(23-04-20 01:36)
-      ✔ Health Check (GET "/" -> 200 OK)
-      ☐ Logging:
-        ☐ Log to console
-        ☐ Make logs that are understandable by Prometheus
-      ✔ Containerize @done(23-04-20 01:36)
-    Admin:
-      ✔ Development
-      ✔ Health Check (GET "/" -> 200 OK)
-      ☐ Logging:
-        ☐ Log to console
-        ☐ Make logs that are understandable by Prometheus
-      ✔ Containerize @done(23-04-19 21:13)
-    Ranking:
-      ✔ Development
-      ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
-      ☐ Logging:
-        ☐ Log to console
-        ☐ Make logs that are understandable by Prometheus
-      ✔ Containerize @done(23-04-19 21:13)
+  Airlines:
+    ✔ Development
+      ☐ GRPC
+    ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
+    ☐ Logging:
+      ☐ Log to console
+      ☐ Make logs that are understandable by Prometheus
+    ✔ Containerize @done(23-04-19 21:13)
+    Deployment:
+      Create deployment yml:
+        ☐ Service
+        ☐ Resources (Ram/CPU)
+        ☐ Network
+  Flights:
+    ✔ Development
+      ☐ GRPC
+    ✔ Health Check (GET "/" -> 200 OK) @done(23-04-19 21:30)
+    ☐ Logging:
+      ☐ Log to console
+      ☐ Make logs that are understandable by Prometheus
+    ✔ Containerize @done(23-04-19 21:13)
+    Deployment:
+      Create deployment yml:
+        ☐ Service
+        ☐ Resources (Ram/CPU)
+        ☐ Network
+  Predictions:
+    ☐ Development:
+      ✔ Make prediction model @done
+      ☐ Create Lambda Function
+      ☐ Implement the MS
+    ✔ Health Check (GET "/" -> 200 OK)
+    ☐ Logging:
+      ☐ Log to console
+      ☐ Make logs that are understandable by Prometheus
+    ✔ Containerize @done
+    Deployment:
+      Create deployment yml:
+        ☐ Service
+        ☐ Resources (Ram/CPU)
+        ☐ Network
+  Admin:
+    ✔ Development
+    ✔ Health Check (GET "/" -> 200 OK)
+    ☐ Logging:
+      ☐ Log to console
+      ☐ Make logs that are understandable by Prometheus
+    ✔ Containerize @done
+    Deployment:
+      Create deployment yml:
+        ☐ Service
+        ☐ Resources (Ram/CPU)
+        ☐ Network
+  Ranking:
+    ✔ Development @done
+    ✔ Health Check (GET "/" -> 200 OK) @done
+    ☐ Logging:
+      ☐ Log to console
+      ☐ Make logs that are understandable by Prometheus
+    ✔ Containerize @done
+    Deployment:
+      Create deployment yml:
+        ☐ Service
+        ☐ Resources (Ram/CPU)
+        ☐ Network     
   CI/CD:
     ☐ Kubernetes:
-      ✔ Ingress: @done(23-04-20 01:39)
-        ✔ Create ingress @done(23-04-20 01:39)
-        ✔ Create ingress rules @done(23-04-20 01:39)
-      ✔ Services: @done(23-04-20 01:39)
-      ✔ Secrets (have kubernetes use secrets correctly): @done(23-04-20 01:39)
-      ✔ Deploy to miniKube: @done(23-04-20 01:39)
+      ✔ Ingress: @done
+        ✔ Create ingress @done
+        ✔ Create ingress rules @done
+      ✔ Services: @done
+      ✔ Secrets (have kubernetes use secrets correctly): @done
+      ✔ Deploy to miniKube: @done
       ☐ Deploy to GKE:
 
   API:
     ☐ Fix yml file (especially ranking - not using delay)
     ☐ Fix yml responses to match ours
+  Recurring:
+    ☐ Reset database before submitting
 
-Recurring:
-  ☐ Reset database before submitting
+Fase One Feedback:
+  ☐ Add GRPC
+  ☐ Add Auto Scaling
+  ☐ Add Logging
+  ☐ Add Probes
+  ☐ Add ConfigMaps
+  ☐ Remove Node Ports

@@ -4,6 +4,10 @@ metadata:
   name: airline-d
   labels:
     app: airline
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/"
+    prometheus.io/port: "8080" 
 spec:
   replicas: 3
   selector:
@@ -29,16 +33,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: airline-s-n
+  name: airline-s
   labels:
     app: airline
 spec:
-  type: NodePort
   selector:
     app: airline
   ports:
     - name: http
       protocol: TCP
-      port: 5000
-      nodePort: 30001
+      port: 80
       targetPort: 5000

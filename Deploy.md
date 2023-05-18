@@ -1,4 +1,4 @@
-# Deployment commands dump
+# Deployment commands
 
 This is a temp file for me to just put all commands I am using to deploy kubernetes
 
@@ -10,41 +10,51 @@ Starting minikube
 minikube start
 ```
 
-Adding secret to environment variables, by putting the cat of the JSON key in the variable
+## Secrets
+
+Add a secret, which consists of a JSON file with the project_id, private_key and other information needed for the microservices to access the BigQuery database.
 
 ```bash
 kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
 ```
 
-Remove secret from kubectl
-
-kubectl delete secret my-secret
-
-
-Reference
-
-https://www.youtube.com/watch?v=cQAEK9PBY8U
+Reference: https://www.youtube.com/watch?v=cQAEK9PBY8U
 
 ## Deploy Ingress
 
 ```bash
-kubectl apply -f .config/ingress/
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/cloud/deploy.yaml
 ```
 
-## Deploy Logging
-
 ```bash
-kubectl apply -f .config/logging/
+kubectl apply -f k8s/ingress/ingress-resource.yml
 ```
 
 ## Deploy all microservices
 
 ```bash
-kubectl apply -f deploy/
+kubectl apply -f k8s/deployments/
 ```
 
-# Remove Microservices
+## Start Prometheus
 
+Create monitoring namespace
+```bash
+kubectl apply -f k8s/monitoring/monitoring.yml
+```
+Create cluster role
+```bash
+kubectl create -f k8s/monitoring/clusterRole.yml
+```
+
+Deploy Prometheus
+```bash
+kubectl create -f k8s/monitoring/config-map.yml
+
+kubectl create -f k8s/monitoring/prometheus-deployment.yml
+
+kubectl create -f k8s/monitoring/prometheus-service.yml
+```
 ## Remove all services
 
 ```bash
@@ -86,5 +96,10 @@ kubectl logs pod-name
 Port forward to send message to nginx from localhost
 
 ```bash
-kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 9000:80
+kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
+```
+
+Test
+```bash
+curl localhost:8080/airlines/G4
 ```

@@ -1,6 +1,7 @@
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from flask import Flask, request, abort
+from prometheus_client import Counter, generate_latest
 import glob,json,os
 
 # BigQuery client setup
@@ -12,16 +13,13 @@ client = bigquery.Client(credentials=credentials)
 # Flask setup
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
-def root():
-    response = app.response_class(
-        response="OK",
-        status=200,
-    )
-    return response
+# Monitoring variables
+request_counter = Counter('airlines_requests_total', 'Total number of requests received in the airlines microservice')
 
 @app.route("/airlines/<airline_code>")
 def get_airline(airline_code, methods=["GET"]):
+    request_counter.inc()
+
     query = f"""
         SELECT * FROM cn54392dataset.flight_table
         WHERE Operating_Airline = "{airline_code}"
@@ -38,9 +36,9 @@ def get_airline(airline_code, methods=["GET"]):
         "iata": result["IATA_Code_Marketing_Airline"]
     }
 
-@app.route("/", methods=["GET"])
-def health_check():
-    return "OK"
+@app.route("/metrics", methods=["GET"])
+def metrics():
+    return generate_latest()
 
 if __name__ == "__main__":
     app.run(debug=True)

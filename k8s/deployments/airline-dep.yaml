@@ -6,10 +6,10 @@ metadata:
     app: airline
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/path: "/"
+    prometheus.io/path: "/metrics"
     prometheus.io/port: "8080" 
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: airline
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: airline
-          image: santig007/cnproject:airline1.0
+          image: therobertsan/airline-container:v2
           ports:
             - containerPort: 5000
           env:

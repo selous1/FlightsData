@@ -5,7 +5,7 @@ metadata:
   labels:
     app: admin
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: admin
@@ -24,7 +24,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: my-secret
-                  key: API_TOKEN 
+                  key: API_TOKEN
+            - name: TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: table 
 ---
 apiVersion: v1
 kind: Service

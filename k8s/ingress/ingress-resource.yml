@@ -21,13 +21,13 @@ spec:
                 name: airline-s
                 port:
                   number: 80
-          # - path: /airlines/rank
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: ranking-s-n
-          #       port:
-          #         number: 5000
+          - path: /airlines/rank
+            pathType: Prefix
+            backend:
+              service:
+                name: ranking-s
+                port:
+                  number: 80
           - path: /flights
             pathType: Prefix
             backend:

@@ -9,7 +9,7 @@ metadata:
     prometheus.io/path: "/"
     prometheus.io/port: "8080" 
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: airline
@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: API_TOKEN 
+            - name: TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: table
 ---
 apiVersion: v1
 kind: Service

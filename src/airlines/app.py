@@ -8,6 +8,7 @@ json_string = os.environ.get('API_TOKEN')
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
+table_name = os.environ.get("TABLE_NAME")
 
 # Flask setup
 app = Flask(__name__)
@@ -22,8 +23,9 @@ def root():
 
 @app.route("/airlines/<airline_code>")
 def get_airline(airline_code, methods=["GET"]):
+
     query = f"""
-        SELECT * FROM cn54392dataset.flight_table
+        SELECT * FROM {table_name}
         WHERE Operating_Airline = "{airline_code}"
         LIMIT 1
     """

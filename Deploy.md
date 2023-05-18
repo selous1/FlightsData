@@ -18,6 +18,10 @@ Add a secret, which consists of a JSON file with the project_id, private_key and
 kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
 ```
 
+```bash
+kubectl create -f k8s/config-maps/config-map.yaml
+```
+
 Reference: https://www.youtube.com/watch?v=cQAEK9PBY8U
 
 ## Deploy Ingress
@@ -44,12 +48,12 @@ kubectl apply -f k8s/monitoring/monitoring.yml
 ```
 Create cluster role
 ```bash
-kubectl create -f k8s/monitoring/clusterRole.yml
+kubectl create -f k8s/monitoring/cluster-role.yml
 ```
 
 Deploy Prometheus
 ```bash
-kubectl create -f k8s/monitoring/config-map.yml
+kubectl create -f k8s/monitoring/prometheus-config.yml
 
 kubectl create -f k8s/monitoring/prometheus-deployment.yml
 
@@ -102,4 +106,8 @@ kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 
 Test
 ```bash
 curl localhost:8080/airlines/G4
+```
+
+```bash
+kubectl exec -it POD-NAME -- /bin/bash
 ```

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ranking
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: ranking
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ranking
-          image: selous1/ranking:v1.0
+          image: selous1/ranking:v1.5
           ports:
             - containerPort: 5000
           env:
@@ -25,20 +25,23 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: API_TOKEN
+            - name: TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: table
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ranking-s-n
+  name: ranking-s
   labels:
     app: ranking
 spec:
-  type: NodePort
   selector:
     app: ranking
   ports:
     - name: http
       protocol: TCP
-      port: 5000
-      nodePort: 30003
+      port: 80
       targetPort: 5000

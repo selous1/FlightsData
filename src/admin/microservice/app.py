@@ -14,6 +14,7 @@ json_string = os.environ.get('API_TOKEN')
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
+table_name = os.environ.get("TABLE_NAME")
 
 app = Flask(__name__)
 registry = CollectorRegistry()
@@ -83,8 +84,8 @@ def post_flight():  # noqa: E501
             values.append(f"'{val}',")
 
     # Values = f"CAST('{values[0]}' AS Date),{values[1]},{values[2]},{values[3]},{values[4]},'{values[5]}','{values[6]}',{values[7]},{values[8]},{values[9]},{values[10]},{values[11]},{values[12]},{values[13]},{values[14]}"
-    query = "INSERT INTO %s ( %s ) VALUES ( %s );" % (
-        'cnproject-381016.cn54392dataset.flight_table', ''.join(Columns)[:-1], ''.join(values)[:-1])
+    query = f"INSERT INTO %s ( %s ) VALUES ( %s );" % (
+        f'{table_name}', ''.join(Columns)[:-1], ''.join(values)[:-1])
 
     results = client.query(query)
 
@@ -109,7 +110,7 @@ def delete_flight(flight_number):  # noqa: E501
     :rtype: None
     """
 
-    query = f"DELETE FROM cnproject-381016.cn54392dataset.flight_table WHERE Flight_Number_Operating_Airline = {flight_number};"
+    query = f"DELETE FROM {table_name} WHERE Flight_Number_Operating_Airline = {flight_number};"
 
     results = client.query(query)
 
@@ -168,7 +169,7 @@ def put_flight(flight_number):  # noqa: E501
             start += f"{ColumnsTranslation[col]} = '{val}',"
 
     # Combine the entire query
-    query = f"UPDATE cnproject-381016.cn54392dataset.flight_table SET {start[:-1]} WHERE Flight_Number_Operating_Airline = {flight_number}; "
+    query = f"UPDATE {table_name} SET {start[:-1]} WHERE Flight_Number_Operating_Airline = {flight_number}; "
 
     results = client.query(query)
 

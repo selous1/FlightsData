@@ -4,6 +4,11 @@
 #
 # > sudo docker build -t ranking:latest -f src/ranking/Dockerfile .
 # > sudo docker run --name ranking --rm -p 5000:5000 ranking:latest
+#
+# How to push to docker hub:
+# docker build -t ranking:latest -f src/ranking/Dockerfile .
+# docker tag ranking selous1/ranking:<version>
+# docker push selous1/ranking:<version>
 
 FROM condaforge/mambaforge:latest
 

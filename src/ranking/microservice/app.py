@@ -10,6 +10,7 @@ json_string = os.environ.get('API_TOKEN')
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
+table_name = os.environ.get("TABLE_NAME")
 
 app = Flask(__name__)
 
@@ -28,7 +29,6 @@ where_params = {
     "end-date": ("FlightDate", "<="),
 }
 
-
 @app.route("/airlines/rank", methods=['GET'])
 def get_airlines_rank():
 
@@ -37,8 +37,6 @@ def get_airlines_rank():
 
     if not args:
         return "Where args", 404
-
-    table_name = "cnproject-381016.flights_data.dataset"
     
     # Start query
     query_elems = [f"""

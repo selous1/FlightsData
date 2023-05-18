@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: API_TOKEN 
+            - name: TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: table
 ---
 apiVersion: v1
 kind: Service

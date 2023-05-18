@@ -8,6 +8,7 @@ json_string = os.environ.get('API_TOKEN')
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
+table_name = os.environ.get("TABLE_NAME")
 
 # Flask setup
 app = Flask(__name__)
@@ -39,7 +40,7 @@ def get_flight_statistics():
     if not args or not any(key in args for key in flight_statistics_get_params.keys()):
         abort(400, "Insert at least one valid query parameter")
 
-    query_elems = ["SELECT * FROM cn54392dataset.flight_table"]
+    query_elems = [f"SELECT * FROM {table_name}"]
     where_and = "WHERE"
 
     for param in flight_statistics_get_params.keys():

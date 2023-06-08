@@ -52,4 +52,4 @@ jobs:
       with:
         push: true
         tags: therobertsan/airline-container:v2
-        context: .src/airlines
+        context: ./src/airlines

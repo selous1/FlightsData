@@ -2,13 +2,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 from flask import Flask, request, abort
 from prometheus_client import Counter, generate_latest
-import glob
-import json
-import os
-import grpc
-# import GRPC.GRPC_pb2
-# import GRPC.GRPC_pb2_grpc
-# from kubernetes import client, config
+import glob, json, os, grpc
 
 # BigQuery client setup
 json_string = os.environ.get('API_TOKEN')
@@ -38,17 +32,6 @@ def get_airline(airline_code, methods=["GET"]):
     query_job = client.query(query)
 
     result = query_job.result().to_dataframe().iloc[0].to_dict()
-
-    """     config.load_incluster_config()
-    v1 = client.CoreV1Api()
-    service = v1.read_namespaced_service('flight-s', "default")
-    ip = service.spec.cluster_ip
-
-    with grpc.insecure_channel(f'{ip}:50051') as channel:
-    stub = GRPC.GRPC_pb2.numberFlightsStub(channel)
-    response = stub.getNumberFlights(GRPC.GRPC_pb2.numberFlightsRequest(airlineCode=airline_code))
-
-    number_of_flights = response.numberFlights """
 
     return {
         "name": result["Airline"],

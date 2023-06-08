@@ -7,13 +7,13 @@ spec:
   rules:
     - http:
         paths:
-          # - path: /admin/flights
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: admin-s-n
-          #       port:
-          #         number: 5000
+           - path: /admin/flights
+             pathType: Prefix
+             backend:
+               service:
+                 name: admin-s
+                 port:
+                   number: 80
           - path: /airlines
             pathType: Prefix
             backend:
@@ -35,10 +35,10 @@ spec:
                 name: flight-s
                 port:
                   number: 80
-          # - path: /flights/predict
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: predict-s-n
-          #       port:
-          #         number: 8080
+           - path: /flights/predict
+             pathType: Prefix
+             backend:
+               service:
+                 name: predict-s
+                 port:
+                   number: 80

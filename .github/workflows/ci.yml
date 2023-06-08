@@ -4,9 +4,11 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: 
+    - main
+    paths: 
+    - src/airlines/**
+    - k8s/deployments/airline-dep.yaml
 
 permissions:
   contents: read

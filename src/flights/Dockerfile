@@ -11,7 +11,7 @@ RUN conda config --set auto_activate_base false
 SHELL ["conda", "run", "-n", "cen16-dev", "/bin/bash", "-c"]
 
 
-COPY ./src/flights /app
+COPY ./src/flights /app/flights
 
 COPY ./src/GRPC /app/GRPC
 

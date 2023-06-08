@@ -13,7 +13,7 @@ SHELL ["conda", "run", "-n", "cen16-dev", "/bin/bash", "-c"]
 
 COPY ./src/flights /app
 
-COPY ./src/GRPC /app
+COPY ./src/GRPC /app/GRPC
 
 EXPOSE 5000
 

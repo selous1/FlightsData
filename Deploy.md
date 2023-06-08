@@ -15,7 +15,7 @@ minikube start
 Add a secret, which consists of a JSON file with the project_id, private_key and other information needed for the microservices to access the BigQuery database.
 
 ```bash
-kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
+kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-58c90c5c255b.json)"
 ```
 
 ```bash

@@ -1,12 +1,18 @@
-FROM python:3.8-slim-buster
+FROM condaforge/mambaforge:latest
 
 WORKDIR /app
 
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+COPY ../../.config/envs/dev-conda-env.yml /app
 
-#COPY key.json ./
-COPY app.py ./
+RUN mamba env create -f dev-conda-env.yml
+RUN mamba init bash
+RUN conda config --set auto_activate_base false
+
+SHELL ["conda", "run", "-n", "cen16-dev", "/bin/bash", "-c"]
+
+
+COPY ./src/airlines /app
 
 EXPOSE 5000
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", "app.py"]

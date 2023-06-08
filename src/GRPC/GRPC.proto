@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package numFlights;
+
+service numberFlights {
+  rpc getNumberFlights (numberFlightsRequest) returns (numberFlightsResponse) {}
+}
+
+message numberFlightsRequest {
+  string airlineCode = 1;
+}
+
+message numberFlightsResponse {
+  int32 numberFlights = 1;
+}

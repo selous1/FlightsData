@@ -40,4 +40,8 @@ dependencies:
   - mamba
   - ansible
   - jinja2 >= 2.11.2
+  # GRPC
+  - protobuf
+  - grpcio
+  - grpcio-tools
 prefix: /home/jferreira/mambaforge

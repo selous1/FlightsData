@@ -6,7 +6,8 @@ from json import loads, dumps
 from decimal import *
 
 # BigQuery client setup
-json_string = os.environ.get('API_TOKEN')
+# test
+json_string = os.environ.get("API_TOKEN")
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
@@ -14,7 +15,8 @@ table_name = os.environ.get("TABLE_NAME")
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+
+@app.route("/", methods=["GET"])
 def root():
     response = app.response_class(
         response="OK",
@@ -22,24 +24,26 @@ def root():
     )
     return response
 
+
 where_params = {
-    "origin_airport_id": ("OriginAirportID", "="), 
+    "origin_airport_id": ("OriginAirportID", "="),
     "dest_airport_id": ("DestAirportID", "="),
     "start-date": ("FlightDate", ">="),
     "end-date": ("FlightDate", "<="),
 }
 
-@app.route("/airlines/rank", methods=['GET'])
-def get_airlines_rank():
 
+@app.route("/airlines/rank", methods=["GET"])
+def get_airlines_rank():
     # Get args
     args = request.args
 
     if not args:
         return "Where args", 404
-    
+
     # Start query
-    query_elems = [f"""
+    query_elems = [
+        f"""
         SELECT Airline as airline,
         Operating_Airline as airline_code,
         COUNT(Airline) as num_flights, 
@@ -48,8 +52,9 @@ def get_airlines_rank():
         CAST(COUNT(CASE WHEN Cancelled THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_cancelled,
         CAST(COUNT(CASE WHEN Diverted THEN 1 END) AS DECIMAL) / COUNT(Airline) as ratio_diverted,
         
-        FROM {table_name}"""]
-    
+        FROM {table_name}"""
+    ]
+
     # Check for where params
     where_and = "WHERE"
     for param in where_params.keys():
@@ -79,17 +84,19 @@ def get_airlines_rank():
         ratio_cancelled = row["ratio_cancelled"]
         ratio_diverted = row["ratio_cancelled"]
 
-        rank = (1-ratio_cancelled) * Decimal(cancellation_weight) + (1-ratio_diverted) * Decimal(diversion_weight)
+        rank = (1 - ratio_cancelled) * Decimal(cancellation_weight) + (
+            1 - ratio_diverted
+        ) * Decimal(diversion_weight)
         ranking.append(rank)
 
     df["ranking"] = ranking
 
-    sorted_df = df.sort_values(by=['ranking'], ascending=False)
+    sorted_df = df.sort_values(by=["ranking"], ascending=False)
 
     # Add ranking number
     ranking_index = []
     for index, row in df.iterrows():
-        ranking_index.append(index+1)
+        ranking_index.append(index + 1)
 
     sorted_df["ranking_index"] = ranking_index
 
@@ -99,25 +106,32 @@ def get_airlines_rank():
 
     result = sorted_df.to_json(orient="records")
     parsed = loads(result)
-    #json = dumps(parsed, indent=4)
+    # json = dumps(parsed, indent=4)
 
     parsed.sort(key=lambda x: x["ranking_index"])
     return parsed
 
 
-def flatten_dict(dd, separator='_', prefix=''):
-    return { prefix + separator + k if prefix else k : v
-             for kk, vv in dd.items()
-             for k, v in flatten_dict(vv, separator, kk).items()
-             } if isinstance(dd, dict) else { prefix : dd }
+def flatten_dict(dd, separator="_", prefix=""):
+    return (
+        {
+            prefix + separator + k if prefix else k: v
+            for kk, vv in dd.items()
+            for k, v in flatten_dict(vv, separator, kk).items()
+        }
+        if isinstance(dd, dict)
+        else {prefix: dd}
+    )
+
 
 def represents_int(s):
-        try: 
-            int(s)
-        except ValueError:
-            return False
-        else:
-            return True
+    try:
+        int(s)
+    except ValueError:
+        return False
+    else:
+        return True
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0")

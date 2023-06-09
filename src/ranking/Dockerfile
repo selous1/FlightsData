@@ -14,7 +14,7 @@ FROM condaforge/mambaforge:latest
 
 WORKDIR /app
 
-COPY ../../.config/envs/prod-conda-env.yml /app
+COPY .config/envs/prod-conda-env.yml /app
 
 RUN mamba env create -f prod-conda-env.yml
 RUN mamba init bash

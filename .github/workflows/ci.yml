@@ -52,6 +52,8 @@ jobs:
       name: Build and push
       uses: docker/build-push-action@v4
       with:
-        push: true
+        context: .
+        file: ./src/airlines/Dockerfile
         tags: therobertsan/airline-container:v2
-        context: ./src/airlines
+        push: true
+        

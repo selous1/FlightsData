@@ -1,6 +1,7 @@
-# This workflow will install Python dependencies, lint with a single version of Python, build and push the image to DockerHub
+# This workflow will install Python dependencies, lint with a single version of Python, 
+# build and push the image to DockerHub
 
-name: Python application
+name: Airlines Workflow
 
 on:
   push:

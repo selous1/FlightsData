@@ -55,6 +55,6 @@ jobs:
       with:
         context: .
         file: ./src/flights/Dockerfile
-        tags: therobertsan/airline-container:v2
+        tags: therobertsan/flight-container:v2
         push: true
         

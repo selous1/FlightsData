@@ -26,6 +26,6 @@ COPY ./src/ranking /app
 
 EXPOSE 5000
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "--pull", "always", "-n", "cen16", "python", "microservice/app.py"]
+ENTRYPOINT ["docker", "pull", "condaforge/mambaforge:latest", "&&", "conda", "run", "--no-capture-output", "-n", "cen16", "python", "microservice/app.py"]
 
 

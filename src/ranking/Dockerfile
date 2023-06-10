@@ -22,9 +22,7 @@ RUN conda config --set auto_activate_base false
 
 SHELL ["conda", "run", "-n", "cen16", "/bin/bash", "-c"]
 
-
 COPY ./src/ranking /app
-#COPY ../.secrets /app
 
 EXPOSE 5000
 

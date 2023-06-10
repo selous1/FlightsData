@@ -17,4 +17,4 @@ COPY ./src/GRPC /app/GRPC
 
 EXPOSE 5000
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "--pull", "always", "-n", "cen16", "python", "microservice/app.py"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16", "python", "microservice/app.py"]

@@ -15,7 +15,7 @@ COPY ./src/admin /app
 
 EXPOSE 5000
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16", "microservice/app.py"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", "microservice/app.py"]
 
 # https://pythonspeed.com/articles/activate-conda-dockerfile/
 # Runs with commands

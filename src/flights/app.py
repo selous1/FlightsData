@@ -6,8 +6,8 @@ import glob
 import json
 import os
 import grpc
-from GRPC.GRPC_pb2 import *
-from GRPC.GRPC_pb2_grpc import *
+from GRPC_pb2 import *
+from GRPC_pb2_grpc import *
 import threading
 
 # BigQuery client setup

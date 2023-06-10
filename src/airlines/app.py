@@ -3,8 +3,8 @@ from google.oauth2 import service_account
 from flask import Flask, request, abort
 from prometheus_client import Counter, generate_latest
 import glob, json, os, grpc
-import GRPC.GRPC_pb2
-import GRPC.GRPC_pb2_grpc
+import GRPC_pb2
+import GRPC_pb2_grpc
 from kubernetes import client, config
 
 # BigQuery client setup

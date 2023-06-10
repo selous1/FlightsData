@@ -1,6 +1,5 @@
 import json
 import os
-import connexion
 import re , glob
 from flask import Flask, request, jsonify, Response
 from google.cloud import bigquery

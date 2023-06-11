@@ -44,5 +44,5 @@ dependencies:
   - protobuf
   - grpcio
   - grpcio-tools
-  - kubernetes
+  - python-kubernetes
 prefix: /home/jferreira/mambaforge

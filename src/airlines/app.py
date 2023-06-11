@@ -37,7 +37,7 @@ def get_airline(airline_code, methods=["GET"]):
     result = query_job.result().to_dataframe().iloc[0].to_dict()
 
     config.load_incluster_config()
-    v1 = client.CoreV1Api()
+    v1 = client.ApiClient()
     service = v1.read_namespaced_service('flight-s', "default")
     ip = service.spec.cluster_ip
     with grpc.insecure_channel(f'{ip}:50051') as channel:

@@ -13,32 +13,32 @@ spec:
               service:
                 name: admin-s
                 port:
-                  number: 80
+                  number: 5000
           - path: /airlines
             pathType: Prefix
             backend:
               service:
                 name: airline-s
                 port:
-                  number: 80
+                  number: 5000
           - path: /airlines/rank
             pathType: Prefix
             backend:
               service:
                 name: ranking-s
                 port:
-                  number: 80
+                  number: 5000
           - path: /flights
             pathType: Prefix
             backend:
               service:
                 name: flight-s
                 port:
-                  number: 80
+                  number: 5000
           - path: /flights/predict
             pathType: Prefix
             backend:
               service:
                 name: predict-s
                 port:
-                  number: 80
+                  number: 5000

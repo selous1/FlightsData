@@ -6,6 +6,7 @@ import glob, json, os, grpc
 import GRPC_pb2
 import GRPC_pb2_grpc
 from kubernetes import client, config
+import kubernetes
 
 # BigQuery client setup
 json_string = os.environ.get('API_TOKEN')
@@ -37,18 +38,19 @@ def get_airline(airline_code, methods=["GET"]):
     result = query_job.result().to_dataframe().iloc[0].to_dict()
 
     config.load_incluster_config()
-    v1 = client.ApiClient()
+    v1 = kubernetes.client.CoreV1Api()
     service = v1.read_namespaced_service('flight-s', "default")
     ip = service.spec.cluster_ip
     with grpc.insecure_channel(f'{ip}:50051') as channel:
-        stub = GRPC.GRPC_pb2.numberFlightsStub(channel)
-    response = stub.getNumberFlights(GRPC.GRPC_pb2.numberFlightsRequest(airlineCode=airline_code))
+        stub = GRPC_pb2_grpc.numberFlightsStub(channel)
+        response = stub.getNumberFlights(GRPC_pb2.numberFlightsRequest(airlineCode=airline_code))
     number_of_flights = response.numberFlights
 
     return {
         "name": result["Airline"],
         "code": result["Operating_Airline"],
-        "number_of_flights": number_of_flights,
+        "iata_code": result["IATA_Code_Marketing_Airline"],
+        "number_of_flights": number_of_flights
     }
 
 

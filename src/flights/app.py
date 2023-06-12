@@ -6,8 +6,8 @@ import glob
 import json
 import os
 import grpc
-from GRPC_pb2 import *
-from GRPC_pb2_grpc import *
+import GRPC_pb2
+import GRPC_pb2_grpc
 import threading
 
 # BigQuery client setup
@@ -146,24 +146,26 @@ def get_flight():
         },
     }
 
-class flightNumberService(numberFlightsServicer):
+class flightNumberService(GRPC_pb2_grpc.numberFlightsServicer):
 
-    def get_flight(self, request, context):
+    def getNumberFlights(self, request, context):
 
         airline_code = request.airlineCode
-
-        query = f"SELECT COUNT(*) AS row_count FROM {table_name} WHERE Operating_Airline = {airline_code}"
+        
+        query = f"SELECT COUNT(*) AS row_count FROM {table_name} WHERE Operating_Airline = '{airline_code}'"
 
         query_job = client.query(query)
+        results = query_job.result()
 
-        result = query_job.result()
-
-        return result
+        first_row = next(iter(results))
+        count = first_row.row_count
+        
+        return GRPC_pb2.numberFlightsResponse(numberFlights=int(count))
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    add_numberFlightsServicer_to_server(flightNumberService(), server)
+    GRPC_pb2_grpc.add_numberFlightsServicer_to_server(flightNumberService(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()

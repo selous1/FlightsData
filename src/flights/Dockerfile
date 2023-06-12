@@ -15,6 +15,8 @@ COPY ./src/flights /app
 # Copy
 COPY ./src/GRPC /app
 
+EXPOSE 50051
+
 EXPOSE 5000
 
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", "app.py"]

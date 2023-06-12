@@ -22,7 +22,7 @@ kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets
 kubectl create -f k8s/config-maps/config-map.yaml
 ```
 
-Reference: https://www.youtube.com/watch?v=cQAEK9PBY8U
+Reference: <https://www.youtube.com/watch?v=cQAEK9PBY8U>
 
 ## Deploy Ingress
 
@@ -34,6 +34,20 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl apply -f k8s/ingress/ingress-resource.yml
 ```
 
+## Deploy service account
+
+```bash
+kubectl apply -f k8s/roles/service-account.yaml
+```
+
+```bash
+kubectl apply -f k8s/roles/airline_role.yaml
+```
+
+```bash
+kubectl apply -f k8s/roles/airline_role_bind.yaml
+```
+
 ## Deploy all microservices
 
 ```bash
@@ -43,15 +57,19 @@ kubectl apply -f k8s/deployments/
 ## Start Prometheus
 
 Create monitoring namespace
+
 ```bash
 kubectl apply -f k8s/monitoring/monitoring.yml
 ```
+
 Create cluster role
+
 ```bash
 kubectl create -f k8s/monitoring/cluster-role.yml
 ```
 
 Deploy Prometheus
+
 ```bash
 kubectl create -f k8s/monitoring/prometheus-config.yml
 
@@ -59,6 +77,7 @@ kubectl create -f k8s/monitoring/prometheus-deployment.yml
 
 kubectl create -f k8s/monitoring/prometheus-service.yml
 ```
+
 ## Remove all services
 
 ```bash
@@ -91,7 +110,7 @@ Run a command in a specific pod (sh if we want to access the pod shell)
 kubectl exec -it "pod-name" "command"
 ```
 
-Check the std out of the pod when it crashed 
+Check the std out of the pod when it crashed
 
 ```bash
 kubectl logs pod-name
@@ -104,6 +123,7 @@ kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 
 ```
 
 Test
+
 ```bash
 curl localhost:8080/airlines/G4
 ```

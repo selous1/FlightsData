@@ -18,9 +18,10 @@ spec:
       labels:
         app: airline
     spec:
+      serviceAccountName: airline-service-account
       containers:
         - name: airline
-          image: therobertsan/airline-container:v2
+          image: santig007/cnproject:airlines1.0
           ports:
             - containerPort: 5000
           env:

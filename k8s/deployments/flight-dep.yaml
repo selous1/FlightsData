@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flight
-          image: therobertsan/flight-container:v2
+          image: santig007/cnproject:flights1.0
           ports:
             - containerPort: 5000
           env:
@@ -45,3 +45,7 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 5000
+    - name: grpc
+      protocol: TCP
+      port: 50051
+      targetPort: 50051

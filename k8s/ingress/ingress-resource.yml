@@ -27,7 +27,7 @@ spec:
               service:
                 name: ranking-s
                 port:
-                  number: 80
+                  number: 5000
           - path: /flights
             pathType: Prefix
             backend:

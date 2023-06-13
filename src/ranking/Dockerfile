@@ -25,5 +25,5 @@ ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", 
 #
 # How to push to docker hub:
 # docker build -t ranking:latest -f src/ranking/Dockerfile .
-# docker tag ranking selous1/ranking:<version>
-# docker push selous1/ranking:<version>
+# docker tag ranking selous1/ranking:v1.5
+# docker push selous1/ranking:v1.5

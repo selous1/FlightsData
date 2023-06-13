@@ -23,7 +23,7 @@ spec:
         - name: airline
           image: selous1/airlines:v1.0
           ports:
-            - containerPort: 5001
+            - containerPort: 5000
           env:
             - name: API_TOKEN
               valueFrom:
@@ -43,13 +43,13 @@ metadata:
   labels:
     app: airline
 spec:
+  type: NodePort
   selector:
     app: airline
   #clusterIP: None
-  type: NodePort
   ports:
     - name: http
       protocol: TCP
       port: 5000
-      targetPort: 5001
       nodePort: 30001
+      targetPort: 5000

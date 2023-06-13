@@ -17,3 +17,8 @@ EXPOSE 5003
 EXPOSE 50051
 
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", "app.py"]
+
+# How to push to docker hub:
+# docker build -t flights:latest -f src/flights/Dockerfile .
+# docker tag flights selous1/flights:v1.0
+# docker push selous1/flights:v1.0

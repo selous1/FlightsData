@@ -127,7 +127,7 @@ def get_flight():
     return {
         "flightDate": result["FlightDate"],
         "flightNumber": result["Flight_Number_Operating_Airline"],
-        "flightDuration": result["ActualElapsedTime"],
+        #"flightDuration": result["ActualElapsedTime"],
         "cancelled": result["Cancelled"],
         "diverted": result["Diverted"],
         "tailNumber": result["Tail_Number"],
@@ -175,4 +175,4 @@ def serve():
 if __name__ == '__main__':
     grpc_server_thread = threading.Thread(target=serve)
     grpc_server_thread.start()
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True, host="0.0.0.0")

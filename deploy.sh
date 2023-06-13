@@ -22,13 +22,8 @@ else
 fi
 
 # Ingress
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/cloud/deploy.yaml
+kubectl apply -f k8s/ingress/ingress-nginx.yml
 kubectl apply -f k8s/ingress/ingress-resource.yml
-while [ $? -lt 0 ]; do
-   kubectl apply -f k8s/ingress/ingress-resource.yml
-   sleep 10
-done
-
 if [ $? -eq 0 ]
 then
     echo -e "${BGreen} Ingress finished"

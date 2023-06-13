@@ -21,9 +21,9 @@ spec:
       serviceAccountName: airline-service-account
       containers:
         - name: airline
-          image: santig007/cnproject:airlines1.0
+          image: selous1/airlines:v1.0
           ports:
-            - containerPort: 5000
+            - containerPort: 5001
           env:
             - name: API_TOKEN
               valueFrom:
@@ -45,8 +45,11 @@ metadata:
 spec:
   selector:
     app: airline
+  #clusterIP: None
+  type: NodePort
   ports:
     - name: http
       protocol: TCP
       port: 5000
-      targetPort: 5000
+      targetPort: 5001
+      nodePort: 30001

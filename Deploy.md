@@ -27,7 +27,7 @@ Reference: <https://www.youtube.com/watch?v=cQAEK9PBY8U>
 ## Deploy Ingress
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/cloud/deploy.yaml
+kubectl apply -f k8s/ingress/ingress-nginx.yml
 ```
 
 ```bash

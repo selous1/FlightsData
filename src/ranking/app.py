@@ -1,12 +1,12 @@
-import json, os, connexion, re, glob
-from flask import Flask, request, jsonify
+import json, os
+from flask import Flask, request
 from google.cloud import bigquery
 from google.oauth2 import service_account
-from json import loads, dumps
+from json import loads
 from decimal import *
 
 # BigQuery client setup
-# test
+# test1
 json_string = os.environ.get("API_TOKEN")
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)

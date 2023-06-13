@@ -1,7 +1,7 @@
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from flask import Flask, request, abort
-from prometheus_client import Counter, generate_latest
+from prometheus_client import Counter, generate_latest, Summary
 import glob, json, os, grpc
 import GRPC_pb2
 import GRPC_pb2_grpc
@@ -21,8 +21,10 @@ app = Flask(__name__)
 # Monitoring variables
 request_counter = Counter('airlines_requests_total',
                           'Total number of requests received in the airlines microservice')
+request_time = Summary('airlines_processing_seconds',
+                          'Time spent processing request')
 
-
+@request_time.time()
 @app.route("/airlines/<airline_code>")
 def get_airline(airline_code, methods=["GET"]):
     request_counter.inc()

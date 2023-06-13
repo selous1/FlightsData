@@ -43,7 +43,6 @@ metadata:
   labels:
     app: airline
 spec:
-  type: NodePort
   selector:
     app: airline
   #clusterIP: None
@@ -51,5 +50,4 @@ spec:
     - name: http
       protocol: TCP
       port: 5000
-      nodePort: 30001
       targetPort: 5000

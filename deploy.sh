@@ -31,6 +31,19 @@ else
     echo -e "${BRed} Failed to creating Ingress"
 fi
 
+# Prometheus
+kubectl apply -f k8s/monitoring/monitoring.yml
+kubectl create -f k8s/monitoring/cluster-role.yml
+kubectl create -f k8s/monitoring/prometheus-config.yml
+kubectl create -f k8s/monitoring/prometheus-deployment.yml
+kubectl create -f k8s/monitoring/prometheus-service.yml
+if [ $? -eq 0 ]
+then
+    echo -e "${BGreen} Prometheus finished"
+else
+    echo -e "${BRed} Failed to creating Prometheus"
+fi
+
 # Service account and roles
 kubectl apply -f k8s/roles/service-account.yaml
 kubectl apply -f k8s/roles/airline_role.yaml
@@ -52,4 +65,4 @@ fi
 # fi
 BPurple='\033[1;35m'
 BCyan='\033[1;36m'
-echo -e " ${BPurple} Do ${BCyan}kubectl apply -f k8s/deployments/ ${BPurple}to deploy application
+echo -e " ${BPurple} Do ${BCyan}kubectl apply -f k8s/deployments/ ${BPurple}to deploy application "

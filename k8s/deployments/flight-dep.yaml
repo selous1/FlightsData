@@ -38,7 +38,6 @@ metadata:
   labels:
     app: flight
 spec:
-  type: NodePort
   selector:
     app: flight
   #clusterIP: None
@@ -46,7 +45,6 @@ spec:
     - name: http
       protocol: TCP
       port: 5000
-      nodePort: 30002
       targetPort: 5000
     - name: grpc
       protocol: TCP

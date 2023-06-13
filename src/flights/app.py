@@ -72,19 +72,18 @@ def get_flight_statistics():
         normalize=True).get(True, 0) * 100
     diversion_per = result["Diverted"].value_counts(
         normalize=True).get(True, 0) * 100
-    max_dep_delay = result["DepDelayMinutes"].max()
-    average_dep_delay = result["DepDelayMinutes"].mean()
-    max_arr_delay = result["ArrDelayMinutes"].max()
-    average_arr_delay = result["ArrDelayMinutes"].mean()
+    #max_dep_delay = result["DepDelayMinutes"].max()
+    #average_dep_delay = result["DepDelayMinutes"].mean()
+    ##average_arr_delay = result["ArrDelayMinutes"].mean()
 
     return {
         "total_flights": total_flights,
         "cancellation_percentage": cancellation_per,
         "diversion_percentage": diversion_per,
-        "max_dep_delay": max_dep_delay,
-        "average_dep_delay": average_dep_delay,
-        "max_arr_delay": max_arr_delay,
-        "average_arr_delay": average_arr_delay
+        #"max_dep_delay": max_dep_delay,
+        #"average_dep_delay": average_dep_delay,
+        #"max_arr_delay": max_arr_delay,
+        #"average_arr_delay": average_arr_delay
     }
 
 # Flight Getter

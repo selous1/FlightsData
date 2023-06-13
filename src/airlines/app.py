@@ -49,7 +49,7 @@ def get_airline(airline_code, methods=["GET"]):
     return {
         "name": result["Airline"],
         "code": result["Operating_Airline"],
-        "iata_code": result["IATA_Code_Marketing_Airline"],
+        #"iata_code": result["IATA_Code_Marketing_Airline"],
         "number_of_flights": number_of_flights
     }
 

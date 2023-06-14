@@ -46,17 +46,18 @@ async fn predict() -> Result<impl Responder, Error> {
         expct_delay: 0.0,
     };
 
-    let client = get_aws_client("eu-north-1").unwrap();
+    let client = get_aws_client().unwrap();
+    let func_name = env::var("AWS_FUNCTION_NAME").expect("AWS_FUNCTION_NAME must be set");
 
     let req_struct = AWSArgs {
-        name: "test".to_string(),
+        name: "test_2".to_string(),
     };
 
     let req_args = Blob::new(serde_json::to_string(&req_struct)?);
 
     let res = client
         .invoke()
-        .function_name("arn:aws:lambda:eu-north-1:621272430898:function:testfunction")
+        .function_name(func_name)
         .payload(req_args)
         .send()
         .await;
@@ -75,13 +76,15 @@ async fn predict() -> Result<impl Responder, Error> {
     }
 }
 
-fn get_aws_client(reg: &str) -> Result<Client, Box<dyn std::error::Error>> {
+fn get_aws_client() -> Result<Client, Box<dyn std::error::Error>> {
     let key_id = env::var("AWS_ACCESS_KEY_ID").expect("AWS_ACCESS_KEY_ID must be set");
     let key_secret = env::var("AWS_ACCESS_KEY_SECRET").expect("AWS_ACCESS_KEY_SECRET must be set");
 
     let cred = Credentials::new(key_id, key_secret, None, None, "loaded-from-custom-env");
 
-    let region = Region::new(reg.to_string());
+    let reg_str = env::var("AWS_REGION").expect("AWS_REGION must be set");
+
+    let region = Region::new(reg_str);
     let conf_builder = Builder::new().region(region).credentials_provider(cred);
     let conf = conf_builder.build();
 

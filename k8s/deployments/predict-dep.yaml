@@ -20,16 +20,26 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: API_TOKEN
+            - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: my-secret
-                  key: API_TOKEN
-            - name: TABLE_NAME
+                  name: aws-secret
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_ACCESS_KEY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret
+                  key: AWS_ACCESS_KEY_SECRET
+            - name: AWS_REGION
               valueFrom:
                 configMapKeyRef:
                   name: my-configmap
-                  key: table
+                  key: prediction_aws_region
+            - name: AWS_FUNCTION_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-configmap
+                  key: prediction_function_name
 ---
 apiVersion: v1
 kind: Service

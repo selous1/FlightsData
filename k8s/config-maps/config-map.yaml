@@ -4,3 +4,5 @@ metadata:
   name: my-configmap
 data:
   table: cnproject-381016.flights_data.dataset
+  prediction_aws_region: eu-north-1
+  prediction_function_name: arn:aws:lambda:eu-north-1:621272430898:function:testfunction

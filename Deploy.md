@@ -19,6 +19,12 @@ kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets
 ```
 
 ```bash
+kubectl create secret generic aws-secret \
+    --from-file=AWS_ACCESS_KEY_ID=.secrets/AWS_ACCESS_KEY_ID.txt \
+    --from-file=AWS_SECRET_ACCESS_KEY=.secrets/AWS_ACCESS_KEY_SECRET.txt
+```
+
+```bash
 kubectl create -f k8s/config-maps/config-map.yaml
 ```
 

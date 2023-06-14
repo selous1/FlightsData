@@ -34,10 +34,19 @@ jobs:
     #     pip install flake8 pytest
     #     if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - 
-      name: Install dependencies with Mamba
+      uses: mamba-org/setup-micromamba@v1
+      with:
+        environment-file: .config/env/dev-conda-env.yml
+        # now called cache-environment
+        cache-environment: true
+    - 
+      name: Initialize environment for bash
       run: |
-        conda install -y -c conda-forge mamba
-        mamba env create -f .config/env/dev-conda-env.yml
+        source "${{ env.CONDA_PREFIX }}/etc/profile.d/conda.sh"
+        conda init bash
+    - 
+      name: Disable auto activation of base environment
+      run: conda config --set auto_activate_base false
     # - 
     #   name: Lint with flake8
     #   run: |

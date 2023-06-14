@@ -78,6 +78,11 @@ kubectl create -f k8s/monitoring/prometheus-deployment.yml
 kubectl create -f k8s/monitoring/prometheus-service.yml
 ```
 
+## Start Grafana
+```bash
+kubectl apply -f k8s/monitoring/grafana.yaml
+```
+
 ## Remove all services
 
 ```bash
@@ -131,3 +136,12 @@ curl localhost:8080/airlines/G4
 ```bash
 kubectl exec -it POD-NAME -- /bin/bash
 ```
+
+# RUn Grafana
+```bash
+kubectl port-forward service/grafana-svc 8081:3000
+```
+User/Password: admin/admin
+
+Add data source -> Prometheus | Put url (nodeport: http://192.168.49.2:30000 )
+Create dashboard -> New Panel -> Select metric

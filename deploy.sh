@@ -44,6 +44,15 @@ else
     echo -e "${BRed} Failed to creating Prometheus"
 fi
 
+#Grafana
+kubectl apply -f k8s/monitoring/grafana.yaml
+if [ $? -eq 0 ]
+then
+    echo -e "${BGreen} Grafana finished"
+else
+    echo -e "${BRed} Failed to creating Grafana"
+fi
+
 # Service account and roles
 kubectl apply -f k8s/roles/service-account.yaml
 kubectl apply -f k8s/roles/airline_role.yaml

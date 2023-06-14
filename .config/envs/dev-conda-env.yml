@@ -45,4 +45,7 @@ dependencies:
   - grpcio
   - grpcio-tools
   - python-kubernetes
+  # Test
+  - pytest
+  - MagicMock
 prefix: /home/jferreira/mambaforge

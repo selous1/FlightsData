@@ -7,6 +7,8 @@ import GRPC_pb2
 import GRPC_pb2_grpc
 from kubernetes import client, config
 import kubernetes
+import pytest
+from unittest.mock import MagicMock
 
 # BigQuery client setup
 json_string = os.environ.get('API_TOKEN')

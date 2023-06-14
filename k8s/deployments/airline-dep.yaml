@@ -21,7 +21,7 @@ spec:
       serviceAccountName: airline-service-account
       containers:
         - name: airline
-          image: selous1/airlines:v1.0
+          image: therobertsan/airline-container:v2
           ports:
             - containerPort: 5000
           env:

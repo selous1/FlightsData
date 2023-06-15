@@ -35,7 +35,7 @@ spec:
                 name: flight-s
                 port:
                   number: 5000
-          - path: /flights/predict
+          - path: /predict
             pathType: Prefix
             backend:
               service:

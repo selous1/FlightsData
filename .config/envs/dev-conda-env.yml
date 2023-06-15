@@ -47,5 +47,5 @@ dependencies:
   - python-kubernetes
   # Test
   - pytest
-  - MagicMock
+  - mock
 prefix: /home/jferreira/mambaforge

@@ -1,9 +1,14 @@
 Blue='\033[0;34m'  
 BGreen='\033[1;32m' 
 BRed='\033[1;31m'
-echo -e "${Blue}Starting Deployment"
+Plane='\U2708'
+Saucer='\U1F6F8'
+Rocket='\U1F680'
+echo -e "${Rocket}${Blue}Starting Deployment of plane API ${Plane} ${Saucer}"
 
 # Create Secret
+ClosedBook='\U1F4D5'
+echo -e "${ClosedBook}${Blue}Starting Secret"
 kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
 if [ $? -eq 0 ]
 then
@@ -13,6 +18,8 @@ else
 fi
 
 # Create Config map
+Map='\U1F5FA'
+echo -e "${Map}${Blue}Starting Config Map"
 kubectl create -f k8s/config-maps/config-map.yaml
 if [ $? -eq 0 ]
 then
@@ -22,6 +29,8 @@ else
 fi
 
 # Ingress
+Walking='\U1F6B6'
+echo -e "${Walking}${Blue}Starting Ingress"
 kubectl apply -f k8s/ingress/ingress-nginx.yml
 kubectl apply -f k8s/ingress/ingress-resource.yml
 if [ $? -eq 0 ]
@@ -32,6 +41,8 @@ else
 fi
 
 # Prometheus
+Fire='\U1F525'
+echo -e "${Fire}${Blue}Starting Prometheus"
 kubectl apply -f k8s/monitoring/monitoring.yml
 kubectl create -f k8s/monitoring/cluster-role.yml
 kubectl create -f k8s/monitoring/prometheus-config.yml
@@ -45,6 +56,8 @@ else
 fi
 
 #Grafana
+BookMark='\U1F4D1'
+echo -e "${BookMark}${Blue}Starting Grafana"
 kubectl apply -f k8s/monitoring/grafana.yaml
 if [ $? -eq 0 ]
 then
@@ -54,6 +67,8 @@ else
 fi
 
 # Service account and roles
+Card='\U1F4B3'
+echo -e "${Card}${Blue}Starting Service Account"
 kubectl apply -f k8s/roles/service-account.yaml
 kubectl apply -f k8s/roles/airline_role.yaml
 kubectl apply -f k8s/roles/airline_role_bind.yaml
@@ -74,4 +89,8 @@ fi
 # fi
 BPurple='\033[1;35m'
 BCyan='\033[1;36m'
-echo -e " ${BPurple} Do ${BCyan}kubectl apply -f k8s/deployments/ ${BPurple}to deploy application "
+Factory='\U1F3ED'
+echo -e "${Factory}${BPurple} Do ${BCyan}kubectl apply -f k8s/deployments/ ${BPurple}to deploy application "
+
+# Emoji Reference
+# https://www.prosettings.com/emoji-list/#1f6f8

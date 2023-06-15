@@ -15,14 +15,19 @@ struct PredictionResult {
     expct_delay: f32,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-struct AWSArgs {
-    name: String,
+#[derive(Deserialize, Serialize, Debug)]
+struct PredArgs {
+    flight_date: String,
+    operating_airline: String,
+    origin: String,
+    destination: String,
+    dep_time: u64,
+    arr_time: u64,
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(liveness).service(predict))
+    HttpServer::new(|| App::new().service(liveness).service(predict).service(hello))
         .bind(("0.0.0.0", 8080))?
         .run()
         .await
@@ -33,27 +38,22 @@ async fn liveness() -> impl Responder {
     HttpResponse::Ok().body("Alive!")
 }
 
-#[get("/")]
+#[get("/hello")]
 async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Ok().body("Hello!")
 }
 
+// https://actix.rs/docs/extractors/
 #[get("/predict")]
-async fn predict() -> Result<impl Responder, Error> {
-    let res = PredictionResult {
-        cancel_prob: 0.0,
-        divert_prob: 0.0,
-        expct_delay: 0.0,
-    };
+async fn predict(req: web::Query<PredArgs>) -> Result<impl Responder, Error> {
+    let req = req.into_inner();
+
+    println!("req: {:?}", req);
 
     let client = get_aws_client().unwrap();
     let func_name = env::var("AWS_FUNCTION_NAME").expect("AWS_FUNCTION_NAME must be set");
 
-    let req_struct = AWSArgs {
-        name: "test_2".to_string(),
-    };
-
-    let req_args = Blob::new(serde_json::to_string(&req_struct)?);
+    let req_args = Blob::new(serde_json::to_string(&req)?);
 
     let res = client
         .invoke()

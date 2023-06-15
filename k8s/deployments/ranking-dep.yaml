@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ranking
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ranking
@@ -17,6 +17,12 @@ spec:
       containers:
         - name: ranking
           image: selous1/ranking:v1.5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 3
           ports:
             - containerPort: 5000
           env:
@@ -38,7 +44,6 @@ metadata:
   labels:
     app: ranking
 spec:
-  type: NodePort
   selector:
     app: ranking
   #clusterIP: None
@@ -46,6 +51,4 @@ spec:
     - name: http
       protocol: TCP
       port: 5000
-      nodePort: 30004
       targetPort: 5000
-      

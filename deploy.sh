@@ -12,7 +12,7 @@ echo -e "${ClosedBook}${Blue}Starting Secret"
 kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets/cnproject-381016-3aa6da06c093.json)"
 kubectl create secret generic aws-secret \
     --from-file=AWS_ACCESS_KEY_ID=.secrets/AWS_ACCESS_KEY_ID.txt \
-    --from-file=AWS_SECRET_ACCESS_KEY=.secrets/AWS_ACCESS_KEY_SECRET.txt
+    --from-file=AWS_ACCESS_KEY_SECRET=.secrets/AWS_ACCESS_KEY_SECRET.txt
 if [ $? -eq 0 ]
 then
     echo -e "${BGreen} Create Secret finished"

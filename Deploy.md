@@ -21,7 +21,7 @@ kubectl create secret generic my-secret --from-literal "API_TOKEN=$(cat .secrets
 ```bash
 kubectl create secret generic aws-secret \
     --from-file=AWS_ACCESS_KEY_ID=.secrets/AWS_ACCESS_KEY_ID.txt \
-    --from-file=AWS_SECRET_ACCESS_KEY=.secrets/AWS_ACCESS_KEY_SECRET.txt
+    --from-file=AWS_ACCESS_KEY_SECRET=.secrets/AWS_ACCESS_KEY_SECRET.txt
 ```
 
 ```bash
@@ -85,6 +85,7 @@ kubectl create -f k8s/monitoring/prometheus-service.yml
 ```
 
 ## Start Grafana
+
 ```bash
 kubectl apply -f k8s/monitoring/grafana.yaml
 ```
@@ -144,10 +145,12 @@ kubectl exec -it POD-NAME -- /bin/bash
 ```
 
 # RUn Grafana
+
 ```bash
 kubectl port-forward service/grafana-svc 8081:3000
 ```
+
 User/Password: admin/admin
 
-Add data source -> Prometheus | Put url (nodeport: http://192.168.49.2:30000 )
+Add data source -> Prometheus | Put url (nodeport: <http://192.168.49.2:30000> )
 Create dashboard -> New Panel -> Select metric

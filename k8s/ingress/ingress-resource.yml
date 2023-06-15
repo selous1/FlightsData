@@ -48,4 +48,4 @@ spec:
               service:
                 name: prometheus-service
                 port:
-                  number: 5000
+                  number: 9090

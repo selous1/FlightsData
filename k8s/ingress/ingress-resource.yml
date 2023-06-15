@@ -42,3 +42,10 @@ spec:
                 name: predict-s
                 port:
                   number: 5000
+          - path: /prometheus
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-service
+                port:
+                  number: 5000

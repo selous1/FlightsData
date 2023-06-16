@@ -15,6 +15,7 @@ table_name = os.environ.get("TABLE_NAME")
 
 app = Flask(__name__)
 
+# test webhook
 
 @app.route("/", methods=["GET"])
 def root():

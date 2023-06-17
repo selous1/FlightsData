@@ -22,7 +22,6 @@ ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", 
 # sudo docker run -p 5000:5000 admin:latest
 # From project root
 # Push to Docker Hub
-# How to push to docker hub:1
 # docker build -t admin:latest -f src/admin/Dockerfile .
 # docker tag admin santig007/cnproject:admin1.0
 # docker push santig007/cnproject:admin1.0

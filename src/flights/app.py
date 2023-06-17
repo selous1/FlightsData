@@ -10,6 +10,8 @@ import GRPC_pb2
 import GRPC_pb2_grpc
 import threading
 
+# test webhook
+
 # BigQuery client setup
 json_string = os.environ.get('API_TOKEN')
 json_file = json.loads(json_string)

@@ -15,8 +15,7 @@ credentials = service_account.Credentials.from_service_account_info(json_file)
 client = bigquery.Client(credentials=credentials)
 table_name = os.environ.get("TABLE_NAME")
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#app = Flask(__name__)
+app = Flask(__name__)
 registry = CollectorRegistry()
 c = Counter('POST_call', 'number of time POST was called')
 

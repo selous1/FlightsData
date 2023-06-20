@@ -37,11 +37,13 @@ jobs:
       uses: mamba-org/setup-micromamba@v1
       with:
         environment-file: .config/envs/dev-conda-env.yml
+        environment-name: cen16-dev
         # now called cache-environment
-        # cache-environment: true
+        cache-environment: true
     - 
       name: Initialize environment for bash
       run: |
+        source "${{ env.CONDA_PREFIX }}/etc/profile.d/conda.sh"
         conda init bash
     - 
       name: Disable auto activation of base environment

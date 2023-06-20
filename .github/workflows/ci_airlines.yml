@@ -42,8 +42,8 @@ jobs:
     - 
       name: Test with pytest
       run: |
-        micromamba shell init -s bash -p $HOME/micromamba
-        source ~/.bashrc
+        exec bash
+        conda init 
         conda activate cen16-dev
         pytest src/airlines/test_app.py
     -

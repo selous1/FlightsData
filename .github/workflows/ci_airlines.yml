@@ -38,27 +38,14 @@ jobs:
       with:
         environment-file: .config/envs/dev-conda-env.yml
         environment-name: cen16-dev
-        # now called cache-environment
         cache-environment: true
-    - 
-      name: Initialize environment for bash
-      run: |
-        source "${{ env.CONDA_PREFIX }}/etc/profile.d/conda.sh"
-        conda init bash
-    - 
-      name: Disable auto activation of base environment
-      run: conda config --set auto_activate_base false
-    #- 
-    #  name: Lint with flake8
-    #  run: |
-    #    # stop the build if there are Python syntax errors or undefined names
-    #    flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-    #    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-    #    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - 
       name: Test with pytest
       run: |
-        conda run --no-capture-output -n cen16-dev pytest src/airlines/test_app.py
+        micromamba shell init -s bash -p $HOME/micromamba
+        source ~/.bashrc
+        conda activate cen16-dev
+        pytest src/airlines/test_app.py
     -
       name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2

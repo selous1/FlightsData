@@ -18,6 +18,7 @@ EXPOSE 5001
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", "app.py"]
 
 # How to push to docker hub
+# this
 # docker build -t airlines:latest -f src/airlines/Dockerfile .
 # docker tag airlines selous1/airlines:v1.0
 # docker push selous1/airlines:v1.0

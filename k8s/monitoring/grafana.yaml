@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana
+        image: grafana/grafana:8.3.3
 ---
 kind: Service
 apiVersion: v1
@@ -34,4 +34,5 @@ spec:
   - name: grafanaui
     protocol: TCP
     port: 3000
+    nodePort: 30001
     targetPort: 3000

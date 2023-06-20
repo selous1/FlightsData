@@ -27,11 +27,13 @@ RUN ls -R
 
 # ---- 
 
-FROM scratch
+FROM ubuntu:latest
 
 # Import from builder.
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
+
+USER doc:doc
 
 WORKDIR /doc
 
@@ -40,8 +42,7 @@ COPY --from=builder /doc/target/x86_64-unknown-linux-musl/release/prediction-ms 
 
 USER doc:doc
 
-CMD ["/doc/prediction-ms"]
-
+CMD ["/doc/prediction-ms", ">>", "/proc/1/fd/1"]
 
 # docker build -t prediction:latest -f src/prediction/Dockerfile .
 # docker tag prediction jbrazf/predict:v1.0

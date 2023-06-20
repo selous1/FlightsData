@@ -35,11 +35,13 @@ async fn main() -> std::io::Result<()> {
 
 #[get("/")]
 async fn liveness() -> impl Responder {
+    println!("liveness check");
     HttpResponse::Ok().body("Alive!")
 }
 
 #[get("/hello")]
 async fn hello() -> impl Responder {
+    println!("hello");
     HttpResponse::Ok().body("Hello!")
 }
 

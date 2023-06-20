@@ -40,14 +40,11 @@ jobs:
         environment-name: cen16-dev
         cache-environment: true
     - 
-      name: Activate environment
+      name: Activate environment and test
       run: |
         exec bash
         conda init 
         conda activate cen16-dev
-    - 
-      name: Test with pytest
-      run: |
         pytest src/airlines/test_app.py
     -
       name: Set up Docker Buildx

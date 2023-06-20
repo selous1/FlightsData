@@ -40,13 +40,10 @@ jobs:
         environment-name: cen16-dev
         cache-environment: true
     - 
-      name: Activate mamba
+      name: Activate environment
       run: |
         exec bash
         conda init 
-    - 
-      name: Activate Environment
-      run: |
         conda activate cen16-dev
     - 
       name: Test with pytest

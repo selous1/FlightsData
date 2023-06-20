@@ -38,7 +38,7 @@ jobs:
       with:
         environment-file: .config/envs/dev-conda-env.yml
         # now called cache-environment
-        cache-environment: true
+        # cache-environment: true
     - 
       name: Initialize environment for bash
       run: |

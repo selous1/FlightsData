@@ -40,11 +40,17 @@ jobs:
         environment-name: cen16-dev
         cache-environment: true
     - 
-      name: Test with pytest
+      name: Activate mamba
       run: |
         exec bash
         conda init 
+    - 
+      name: Activate Environment
+      run: |
         conda activate cen16-dev
+    - 
+      name: Test with pytest
+      run: |
         pytest src/airlines/test_app.py
     -
       name: Set up Docker Buildx

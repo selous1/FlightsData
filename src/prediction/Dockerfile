@@ -27,7 +27,7 @@ RUN ls -R
 
 # ---- 
 
-FROM ubuntu:latest
+FROM scratch
 
 # Import from builder.
 COPY --from=builder /etc/passwd /etc/passwd

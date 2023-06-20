@@ -30,6 +30,7 @@ RUN ls -R
 FROM scratch
 
 # Import from builder.
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
 
@@ -48,3 +49,4 @@ CMD ["/doc/prediction-ms", ">>", "/proc/1/fd/1"]
 # docker tag prediction jbrazf/predict:v1.0
 # docker push jbrazf/predict:v1.0
 # docker run --name pred -p 5000:5000 -d prediction:latest
+# https://serverfault.com/questions/599103/make-a-docker-application-write-to-stdout

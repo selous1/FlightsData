@@ -16,6 +16,8 @@
           - ca-certificates
           - apt-transport-https
           - software-properties-common
+          - libssl-dev
+          - pkg-config
         state: latest
         update_cache: true
 

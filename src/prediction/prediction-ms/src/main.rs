@@ -28,18 +28,20 @@ struct PredArgs {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| App::new().service(liveness).service(predict).service(hello))
-        .bind(("0.0.0.0", 8080))?
+        .bind(("0.0.0.0", 5000))?
         .run()
         .await
 }
 
 #[get("/")]
 async fn liveness() -> impl Responder {
+    println!("liveness check");
     HttpResponse::Ok().body("Alive!")
 }
 
 #[get("/hello")]
 async fn hello() -> impl Responder {
+    println!("hello");
     HttpResponse::Ok().body("Hello!")
 }
 

@@ -26,8 +26,6 @@ ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-dev", "python", 
 # docker tag admin santig007/cnproject:admin1.0
 # docker push santig007/cnproject:admin1.0
 
-# hopefully pushes to container registry
-
 # Command to test cloud build:
 # curl -X POST -H "application/json" "https://cloudbuild.googleapis.com/v1/projects/cnproject-381016/triggers/trigger-test:webhook?key=AIzaSyDx6bIBtpbGl3tkF7RqySY543YAwJVxldw&secret=GdtV2NNLvAlh_GN-mBCecH90CtX7HNOM" -d "{}"
 # https://console.cloud.google.com/cloud-build/triggers;region=global?hl=pt-pt&project=cnproject-381016

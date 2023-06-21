@@ -17,13 +17,19 @@ spec:
       containers:
         - name: predict
           image: jbrazf/predict:v1.0
+          ports:
+            - containerPort: 5000
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: 5000
+#            initialDelaySeconds: 3
+#            periodSeconds: 3
           resources:
             requests:
               memory: "5Mi"
             limits:
               memory: "10Mi"
-          ports:
-            - containerPort: 5000
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:

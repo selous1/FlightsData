@@ -22,14 +22,11 @@ spec:
       containers:
         - name: airline
           image: therobertsan/airline-container:v2
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 3
-            periodSeconds: 3
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              memory: "370Mi"
           env:
             - name: API_TOKEN
               valueFrom:

@@ -17,11 +17,17 @@ spec:
       containers:
         - name: admin
           image: santig007/cnproject:admin1.0
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: 5000
+#            initialDelaySeconds: 3
+#            periodSeconds: 3
+          ports:
+            - containerPort: 5000
           resources:
             requests:
               memory: "320Mi"
-          ports:
-            - containerPort: 5000
           env:
             - name: API_TOKEN
               valueFrom:

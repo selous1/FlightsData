@@ -17,6 +17,11 @@ spec:
       containers:
         - name: predict
           image: jbrazf/predict:v1.0
+          resources:
+            requests:
+              memory: "5Mi"
+            limits:
+              memory: "10Mi"
           ports:
             - containerPort: 5000
           env:

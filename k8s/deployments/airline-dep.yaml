@@ -22,6 +22,9 @@ spec:
       containers:
         - name: airline
           image: therobertsan/airline-container:v2
+          resources:
+            requests:
+              memory: "370Mi"
           ports:
             - containerPort: 5000
           env:

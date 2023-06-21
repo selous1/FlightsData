@@ -1,0 +1,12 @@
+---
+base: "http://localhost:5000"
+iterations: 100
+rampup: 5
+plan:
+  - name: flights
+    request:
+      url: /admin/flights
+      method: POST
+      body: '{"flightDate": "2023-04-18", "flightNumber": 456, "flightDuration": 0, "cancelled": true, "diverted": true, "tailNumber": "hello7", "airlineCode": "string", "departure":{ "airportId": 0, "scheduled": 0, "actual": 0, "delay": 0 }, "arrival":{ "airportId": 0, "scheduled": 0, "actual": 0, "delay": 0 }}'
+      headers:
+        Content-Type: application/json

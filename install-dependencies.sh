@@ -57,6 +57,4 @@ bash -c "$env_path/condabin/conda config --set auto_activate_base false"
 echo -e "${BLUE}Lets just have ansible do its thing!${NC}"
 bash .config/scripts/run-ansible.sh
 
-cargo install drill
-
 exec bash

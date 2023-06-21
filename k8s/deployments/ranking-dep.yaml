@@ -17,6 +17,9 @@ spec:
       containers:
         - name: ranking
           image: selous1/ranking:v1.5
+          resources:
+            requests:
+              memory: "260Mi"
           livenessProbe:
             httpGet:
               path: /

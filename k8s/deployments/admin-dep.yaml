@@ -17,6 +17,9 @@ spec:
       containers:
         - name: admin
           image: santig007/cnproject:admin1.0
+          resources:
+            requests:
+              memory: "320Mi"
           livenessProbe:
             httpGet:
               path: /

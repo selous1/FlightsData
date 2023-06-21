@@ -5,12 +5,13 @@ iterations: 100000
 rampup: 1
 
 plan:
-  - name: Test
+  - name: root
     request:
       url: /
 
-  - name: Test2
+  - name: live
     request:
       url: /hello
       method: GET
 # drill -b .config/tests/example.yaml -n -s
+# https://github.com/fcsonline/drill/blob/master/SYNTAX.md

@@ -17,6 +17,9 @@ spec:
       containers:
         - name: flight
           image: selous1/flights:v1.0
+          resources:
+            requests:
+              memory: "290Mi"
           ports:
             - containerPort: 5000
           env:

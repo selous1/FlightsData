@@ -1,5 +1,5 @@
 # This is the production python requirement's
-name: cen16
+name: cen16-prod
 channels:
   - conda-forge
 dependencies:
@@ -17,4 +17,12 @@ dependencies:
   - yaml-cpp
   # config management
   - mamba
+  # stuff
+  - google-cloud-bigquery
+  - prometheus_client
+  - grpcio
+  - grpcio-tools
+  - python-kubernetes
+  - pytest
+  - mock
 prefix: /home/jferreira/mambaforge

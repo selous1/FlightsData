@@ -1,13 +1,12 @@
+import json, os, grpc, pytest
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from flask import Flask, request, abort
 from prometheus_client import Counter, generate_latest, Summary
-import glob, json, os, grpc
 import GRPC_pb2
 import GRPC_pb2_grpc
 from kubernetes import client, config
 import kubernetes
-import pytest
 from unittest.mock import MagicMock
 
 # test webhook

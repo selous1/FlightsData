@@ -18,6 +18,7 @@ dependencies:
   # config management
   - mamba
   # stuff
+  - pandas
   - google-cloud-bigquery
   - prometheus_client
   - grpcio

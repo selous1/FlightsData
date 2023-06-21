@@ -17,6 +17,12 @@ spec:
       containers:
         - name: flight
           image: selous1/flights:v1.0
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 3
           ports:
             - containerPort: 5000
           env:

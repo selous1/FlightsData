@@ -23,7 +23,7 @@ ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "cen16-prod", "python",
 # > sudo docker build -t ranking:latest -f src/ranking/Dockerfile .
 # > sudo docker run --name ranking --rm -p 5000:5000 ranking:latest
 #
-# How to push to docker hub:
+# How to push to docker hub: 
 # docker build -t ranking:latest -f src/ranking/Dockerfile .
 # docker tag ranking selous1/ranking:v1.5
 # docker push selous1/ranking:v1.5

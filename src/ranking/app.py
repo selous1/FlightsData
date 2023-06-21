@@ -6,7 +6,6 @@ from json import loads
 from decimal import *
 
 # BigQuery client setup
-# test1
 json_string = os.environ.get("API_TOKEN")
 json_file = json.loads(json_string)
 credentials = service_account.Credentials.from_service_account_info(json_file)
@@ -14,8 +13,6 @@ client = bigquery.Client(credentials=credentials)
 table_name = os.environ.get("TABLE_NAME")
 
 app = Flask(__name__)
-
-# test webhook
 
 @app.route("/", methods=["GET"])
 def root():
@@ -25,14 +22,12 @@ def root():
     )
     return response
 
-
 where_params = {
     "origin_airport_id": ("OriginAirportID", "="),
     "dest_airport_id": ("DestAirportID", "="),
     "start-date": ("FlightDate", ">="),
     "end-date": ("FlightDate", "<="),
 }
-
 
 @app.route("/airlines/rank", methods=["GET"])
 def get_airlines_rank():
@@ -112,27 +107,6 @@ def get_airlines_rank():
     parsed.sort(key=lambda x: x["ranking_index"])
     return parsed
 
-
-def flatten_dict(dd, separator="_", prefix=""):
-    return (
-        {
-            prefix + separator + k if prefix else k: v
-            for kk, vv in dd.items()
-            for k, v in flatten_dict(vv, separator, kk).items()
-        }
-        if isinstance(dd, dict)
-        else {prefix: dd}
-    )
-
-
-def represents_int(s):
-    try:
-        int(s)
-    except ValueError:
-        return False
-    else:
-        return True
-
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
+

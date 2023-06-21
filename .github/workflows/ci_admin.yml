@@ -57,23 +57,23 @@ jobs:
         file: ./src/admin/Dockerfile
         tags: santig007/cnproject:admin1.0
         push: true
-    - 
-      name: Auth Google Cloud SDK
-      uses: google-github-actions/auth@v1
-      with:
-        credentials_json: ${{ secrets.GOOGLE_CLOUD_AUTH }}
-    - 
-      name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
-    - 
-      name: Configure gcloud
-      run: gcloud --quiet components install kubectl
-    - 
-      name: Deploy to Google Cloud
-      run: |
-          gcloud auth configure-docker
-          CLUSTER_NAME=$(gcloud container clusters list --format=json | jq -r '.[0].name')
-          CLUSTER_ZONE=$(gcloud container clusters list --format=json | jq -r '.[0].zone')
-          PROJECT_ID=$(gcloud config get-value project)
-          gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE --project $PROJECT_ID
-          kubectl apply -f k8s/deployments/admin-dep.yaml
+    # - 
+    #   name: Auth Google Cloud SDK
+    #   uses: google-github-actions/auth@v1
+    #   with:
+    #     credentials_json: ${{ secrets.GOOGLE_CLOUD_AUTH }}
+    # - 
+    #   name: 'Set up Cloud SDK'
+    #   uses: 'google-github-actions/setup-gcloud@v1'
+    # - 
+    #   name: Configure gcloud
+    #   run: gcloud --quiet components install kubectl
+    # - 
+    #   name: Deploy to Google Cloud
+    #   run: |
+    #       gcloud auth configure-docker
+    #       CLUSTER_NAME=$(gcloud container clusters list --format=json | jq -r '.[0].name')
+    #       CLUSTER_ZONE=$(gcloud container clusters list --format=json | jq -r '.[0].zone')
+    #       PROJECT_ID=$(gcloud config get-value project)
+    #       gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE --project $PROJECT_ID
+    #       kubectl apply -f k8s/deployments/admin-dep.yaml

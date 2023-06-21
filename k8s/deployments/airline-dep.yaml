@@ -9,7 +9,7 @@ metadata:
     prometheus.io/path: "/metrics"
     prometheus.io/port: "8080"
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: airline

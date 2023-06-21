@@ -6,16 +6,12 @@ dependencies:
   - python=3.10
   - autopep8
   - setuptools >= 21.0.0
-  - pandas
   # general dev
   - flask
-  - attrs
   - protobuf
   - openssl
   - yaml
   - python-dateutil
-  # swagger
-  - connexion>=2.6.0
   # cloud
   - google-cloud-bigquery
   - yaml-cpp

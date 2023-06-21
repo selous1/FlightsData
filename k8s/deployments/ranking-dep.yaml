@@ -20,12 +20,6 @@ spec:
           resources:
             requests:
               memory: "260Mi"
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 3
-            periodSeconds: 3
           ports:
             - containerPort: 5000
           env:

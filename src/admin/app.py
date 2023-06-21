@@ -1,6 +1,4 @@
-import json
-import os
-import re , glob
+import json, os, re
 from flask import Flask, request, jsonify, Response
 from google.cloud import bigquery
 from google.oauth2 import service_account

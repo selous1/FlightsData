@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flight
-          image: selous1/flights:v1.0
+          image: therobertsan/flight-container:v2
           ports:
             - containerPort: 5000
           resources:

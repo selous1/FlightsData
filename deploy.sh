@@ -43,6 +43,17 @@ else
     echo -e "${BRed} Failed to creating Ingress"
 fi
 
+# HPA 
+
+#kubectl apply -f k8s/hpa/components.yaml -n metrics
+kubectl apply -f k8s/hpa/hpa.yml
+if [ $? -eq 0 ]
+then
+    echo -e "${BGreen} HPA finished"
+else
+    echo -e "${BRed} Failed to creating HPA"
+fi
+
 # Prometheus
 Fire='\U1F525'
 echo -e "${Fire}${Blue}Starting Prometheus"
